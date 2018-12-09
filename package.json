@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "server": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +34,7 @@
     "precss": "^4.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "tether": "^1.4.5"
+    "tether": "^1.4.5",
+    "webpack-dev-server": "^3.1.10"
   }
 }
