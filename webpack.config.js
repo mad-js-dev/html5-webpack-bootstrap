@@ -62,7 +62,7 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([ 
         { from: './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', to: './vendors/bootstrap/bootstrap.bundle.min.js' },
-        { from: './node_modules/jquery/jquery.min.js', to: './vendors/jquery/jquery.min.js' },
+        { from: './node_modules/jquery/dist/jquery.slim.min.js', to: './vendors/jquery/jquery.slim.min.js' },
     ]),
     new MiniCssExtractPlugin({
       filename: "styles.css"
