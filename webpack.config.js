@@ -2,6 +2,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 
 const devMode = process.env.NODE_ENV !== 'production'
 
@@ -58,6 +60,10 @@ module.exports = {
     ]
   },
   plugins: [
+    new CopyWebpackPlugin([ 
+        { from: './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', to: './vendors/bootstrap/bootstrap.bundle.min.js' },
+        { from: './node_modules/jquery/jquery.min.js', to: './vendors/jquery/jquery.min.js' },
+    ]),
     new MiniCssExtractPlugin({
       filename: "styles.css"
     }),
