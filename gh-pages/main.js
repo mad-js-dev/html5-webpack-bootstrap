@@ -94,7 +94,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\n__webpack_require__(/*! ./styles/style.scss */ \"./src/styles/style.scss\");\n\nconsole.log(\"hello, world\");\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("\n\n__webpack_require__(/*! ./styles/style.scss */ \"./src/styles/style.scss\");\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 

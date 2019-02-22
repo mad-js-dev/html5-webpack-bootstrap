@@ -10,6 +10,7 @@ const devMode = process.env.NODE_ENV !== 'production'
 module.exports = {
   entry: {
       main: './src/index.js',
+      home: './src/home.js'
   },
   output: {
     path: path.resolve(__dirname, 'gh-pages'),
@@ -34,7 +35,7 @@ module.exports = {
               localIdentName: '[local]',
               importLoaders: 1,
               minimize: true
-          }
+            }
           },
           {
             loader: 'postcss-loader',
@@ -63,6 +64,7 @@ module.exports = {
     new CopyWebpackPlugin([ 
         { from: './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', to: './vendors/bootstrap/bootstrap.bundle.min.js' },
         { from: './node_modules/jquery/dist/jquery.slim.min.js', to: './vendors/jquery/jquery.slim.min.js' },
+        { from: './src/assets/data/data.json', to: './assets/data/data.json' },
     ]),
     new MiniCssExtractPlugin({
       filename: "styles.css"
@@ -76,5 +78,11 @@ module.exports = {
         title: 'My awesome service',
         template: './src/views/index.hbs'
     })
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      // include all types of chunks
+      chunks: 'all'
+    }
+  }
 };
