@@ -1,11 +1,24 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin"),
+path = require('path'),
+webpack = require('webpack'),
+HtmlWebpackPlugin = require('html-webpack-plugin'),
+CopyWebpackPlugin = require('copy-webpack-plugin'),
+CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production'
+
+// the path(s) that should be cleaned
+let pathsToClean = [
+  'gh-pages/*.*'
+]
+
+// the clean options to use
+let cleanOptions = {
+  root:     __dirname,
+  verbose:  true,
+  watch: true,
+  beforeEmit: true
+}
 
 module.exports = {
   entry: {
@@ -79,7 +92,8 @@ module.exports = {
     new HtmlWebpackPlugin({
         title: 'My awesome service',
         template: './src/views/index.hbs'
-    })
+    }),
+    new CleanWebpackPlugin(pathsToClean, cleanOptions),
   ],
   optimization: {
     runtimeChunk: 'single',
