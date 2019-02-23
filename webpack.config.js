@@ -10,10 +10,12 @@ const devMode = process.env.NODE_ENV !== 'production'
 module.exports = {
   entry: {
       main: './src/index.js',
-      home: './src/home.js'
+      home: './src/home.js',
+      BaseStyles: './src/BaseStyles.js'
   },
   output: {
-    path: path.resolve(__dirname, 'gh-pages'),
+     path: path.resolve(__dirname, 'gh-pages'),
+    filename: '[name].[contenthash].js',
   },
   module: {
     rules: [
@@ -80,9 +82,24 @@ module.exports = {
     })
   ],
   optimization: {
+    runtimeChunk: 'single',
     splitChunks: {
-      // include all types of chunks
-      chunks: 'all'
-    }
-  }
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name(module) {
+            // get the name. E.g. node_modules/packageName/not/this/part.js
+            // or node_modules/packageName
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+
+            // npm package names are URL-safe, but some servers don't like @ symbols
+            return `npm.${packageName.replace('@', '')}`;
+          },
+        },
+      },
+    },
+  },
 };

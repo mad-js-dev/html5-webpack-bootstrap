@@ -1,0 +1,26 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["BaseStyles"],{
+
+/***/ "./src/BaseStyles.js":
+/*!***************************!*\
+  !*** ./src/BaseStyles.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\n__webpack_require__(/*! ./styles/base.scss */ \"./src/styles/base.scss\");\n\n//# sourceURL=webpack:///./src/BaseStyles.js?");
+
+/***/ }),
+
+/***/ "./src/styles/base.scss":
+/*!******************************!*\
+  !*** ./src/styles/base.scss ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("throw new Error(\"Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\\nTypeError: this[MODULE_TYPE] is not a function\\n    at childCompiler.runAsChild (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\mini-css-extract-plugin\\\\dist\\\\loader.js:141:24)\\n    at compile (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compiler.js:296:11)\\n    at hooks.afterCompile.callAsync.err (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compiler.js:552:14)\\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\HookCodeFactory.js:32:10), <anonymous>:24:1)\\n    at AsyncSeriesHook.lazyCompileHook (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\Hook.js:154:20)\\n    at compilation.seal.err (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compiler.js:549:30)\\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\HookCodeFactory.js:32:10), <anonymous>:6:1)\\n    at AsyncSeriesHook.lazyCompileHook (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\Hook.js:154:20)\\n    at hooks.optimizeAssets.callAsync.err (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compilation.js:1323:35)\\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\HookCodeFactory.js:32:10), <anonymous>:6:1)\\n    at AsyncSeriesHook.lazyCompileHook (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\Hook.js:154:20)\\n    at hooks.optimizeChunkAssets.callAsync.err (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compilation.js:1314:32)\\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\HookCodeFactory.js:32:10), <anonymous>:6:1)\\n    at AsyncSeriesHook.lazyCompileHook (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\Hook.js:154:20)\\n    at hooks.additionalAssets.callAsync.err (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compilation.js:1309:36)\\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\HookCodeFactory.js:32:10), <anonymous>:6:1)\\n    at AsyncSeriesHook.lazyCompileHook (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\Hook.js:154:20)\\n    at hooks.optimizeTree.callAsync.err (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compilation.js:1305:32)\\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\HookCodeFactory.js:32:10), <anonymous>:6:1)\\n    at AsyncSeriesHook.lazyCompileHook (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\Hook.js:154:20)\\n    at Compilation.seal (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compilation.js:1242:27)\\n    at hooks.make.callAsync.err (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compiler.js:546:17)\\n    at _err0 (eval at create (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\tapable\\\\lib\\\\HookCodeFactory.js:32:10), <anonymous>:11:1)\\n    at _addModuleChain (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compilation.js:1093:12)\\n    at processModuleDependencies.err (C:\\\\Users\\\\Brais\\\\Documents\\\\GitHub\\\\invisible\\\\node_modules\\\\webpack\\\\lib\\\\Compilation.js:1005:9)\\n    at _combinedTickCallback (internal/process/next_tick.js:131:7)\\n    at process._tickCallback (internal/process/next_tick.js:180:9)\");\n\n//# sourceURL=webpack:///./src/styles/base.scss?");
+
+/***/ })
+
+},[["./src/BaseStyles.js","runtime"]]]);

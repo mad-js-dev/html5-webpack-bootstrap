@@ -22,38 +22,45 @@ class BridePie {
         const arc = d3.arc()
             .innerRadius(0)
             .outerRadius(radius);
+        
+        const newarc = d3.arc()
+            .innerRadius(2 * radius / 3)
+            .outerRadius(radius);
 
-        function type(d) {
-            d.apples = Number(d.apples);
-            d.oranges = Number(d.oranges);
-            return d;
-        }
 
         function arcTween(a) {
             const i = d3.interpolate(this._current, a);
             this._current = i(1);
             return (t) => arc(i(t));
         }
+        
         d3.json("./assets/data/data.json").then(info => {
-            
-            
-
                 // Join new data
+                const groups = svg.selectAll('g')
+                  .data(pie(info.data));
+            
                 const path = svg.selectAll("path")
                     .data(pie(info.data));
 
                 // Update existing arcs
-                path.transition().duration(200).attrTween("d", arcTween);
+                groups.transition().duration(200).attrTween("d", arcTween);
 
                 // Enter new arcs
-                path.enter().append("path")
+                groups.enter().append("g").append("path")
                     .attr("fill", (d, i) => color(i))
                     .attr("d", arc)
                     .attr("stroke", "white")
                     .attr("stroke-width", "6px")
+//                    .append("text")
+//                    .attr("transform", function (d) {
+//                        return "translate(" + newarc.centroid(d) + ")";
+//                    })
+//                    .attr("text-anchor", "middle")
+//                    .attr("fill", "white")
+//                    .text(function (d) {
+//                        return d.data.label;
+//                    })
                     .each(function(d) { this._current = d; });
-
-          
         });
     }
 }
