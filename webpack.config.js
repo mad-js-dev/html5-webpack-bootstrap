@@ -5,7 +5,7 @@ HtmlWebpackPlugin = require('html-webpack-plugin'),
 CopyWebpackPlugin = require('copy-webpack-plugin'),
 CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const devMode = process.env.NODE_ENV !== 'production'
+const devMode = process.env.NODE_ENV !== 'production';
 
 // the path(s) that should be cleaned
 let pathsToClean = [
@@ -20,6 +20,7 @@ let cleanOptions = {
   beforeEmit: true
 }
 
+console.log(__dirname)
 module.exports = {
   entry: {
       main: './src/index.js',
@@ -81,9 +82,7 @@ module.exports = {
         { from: './node_modules/jquery/dist/jquery.slim.min.js', to: './vendors/jquery/jquery.slim.min.js' },
         { from: './src/assets/data/data.json', to: './assets/data/data.json' },
     ]),
-    new MiniCssExtractPlugin({
-      filename: "styles.css"
-    }),
+    new MiniCssExtractPlugin(),
     new webpack.LoaderOptionsPlugin({
         options: {
           handlebarsLoader: {}
@@ -91,11 +90,12 @@ module.exports = {
     }), 
     new HtmlWebpackPlugin({
         title: 'My awesome service',
-        template: './src/views/index.hbs'
+        template: './src/views/index.hbs',
     }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
   ],
   optimization: {
+    minimize: false,
     runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
