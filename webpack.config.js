@@ -9,7 +9,7 @@ const devMode = process.env.NODE_ENV !== 'production'
 
 // the path(s) that should be cleaned
 let pathsToClean = [
-  'gh-pages/*.*'
+  'docs/*.*'
 ]
 
 // the clean options to use
@@ -27,7 +27,7 @@ module.exports = {
       BaseStyles: './src/BaseStyles.js'
   },
   output: {
-     path: path.resolve(__dirname, 'gh-pages'),
+    path: path.resolve(__dirname, 'docs'),
     filename: '[name].[contenthash].js',
   },
   module: {
