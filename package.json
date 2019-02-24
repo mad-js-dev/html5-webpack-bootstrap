@@ -21,6 +21,7 @@
     "image-webpack-loader": "^4.6.0",
     "mini-css-extract-plugin": "^0.4.5",
     "webpack": "^4.26.1",
+    "webpack-clean": "^1.2.3",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {

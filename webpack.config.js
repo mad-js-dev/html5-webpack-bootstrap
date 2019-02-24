@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"),
 path = require('path'),
 webpack = require('webpack'),
+glob = require("glob"),
 HtmlWebpackPlugin = require('html-webpack-plugin'),
 CopyWebpackPlugin = require('copy-webpack-plugin'),
 CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -20,12 +21,14 @@ let cleanOptions = {
   beforeEmit: true
 }
 
-console.log(__dirname)
+let entries = glob.sync('./src/**/!(*Styles).js');
+
+console.log(entries)
 module.exports = {
   entry: {
-      main: './src/index.js',
-      home: './src/home.js',
-      BaseStyles: './src/BaseStyles.js'
+      main: entries,
+      //home: './src/home.js',
+      BaseStyles: './src/styles/BaseStyles.js'
   },
   output: {
     path: path.resolve(__dirname, 'docs'),
@@ -103,16 +106,9 @@ module.exports = {
       minSize: 0,
       cacheGroups: {
         vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name(module) {
-            // get the name. E.g. node_modules/packageName/not/this/part.js
-            // or node_modules/packageName
-            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-
-            // npm package names are URL-safe, but some servers don't like @ symbols
-            return `npm.${packageName.replace('@', '')}`;
-          },
-        },
+            reuseExistingChunk: true,
+            test: /[\\/]node_modules[\\/]/,
+        }
       },
     },
   },

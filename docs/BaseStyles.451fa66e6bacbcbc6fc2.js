@@ -1,14 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["BaseStyles"],{
 
-/***/ "./src/BaseStyles.js":
-/*!***************************!*\
-  !*** ./src/BaseStyles.js ***!
-  \***************************/
+/***/ "./src/styles/BaseStyles.js":
+/*!**********************************!*\
+  !*** ./src/styles/BaseStyles.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\n__webpack_require__(/*! ./styles/base.scss */ \"./src/styles/base.scss\");\n\n//# sourceURL=webpack:///./src/BaseStyles.js?");
+eval("\n\n__webpack_require__(/*! ./base.scss */ \"./src/styles/base.scss\");\n\n//# sourceURL=webpack:///./src/styles/BaseStyles.js?");
 
 /***/ }),
 
@@ -23,4 +23,4 @@ eval("// extracted by mini-css-extract-plugin\nmodule.exports = {\"h1\":\"h1\",\
 
 /***/ })
 
-},[["./src/BaseStyles.js","runtime"]]]);
+},[["./src/styles/BaseStyles.js","runtime"]]]);

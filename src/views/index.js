@@ -1,3 +1,4 @@
+import "../styles/pageStyles.scss";
 
 class BridePie {
     constructor(...data){
