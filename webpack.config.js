@@ -4,10 +4,11 @@ webpack = require('webpack'),
 glob = require("glob"),
 HtmlWebpackPlugin = require('html-webpack-plugin'),
 CopyWebpackPlugin = require('copy-webpack-plugin'),
-CleanWebpackPlugin = require('clean-webpack-plugin');
-
+CleanWebpackPlugin = require('clean-webpack-plugin'),
+WebpackCleanMinifyStyleScripts = require('./webpack-clean-minify-style-scripts/webpack-clean-minify-style-scripts.js'),
+UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
+TerserPlugin = require('terser-webpack-plugin');
 const devMode = process.env.NODE_ENV !== 'production';
-
 // the path(s) that should be cleaned
 let pathsToClean = [
   'docs/*.*'
@@ -26,9 +27,10 @@ let entries = glob.sync('./src/**/!(*Styles).js');
 console.log(entries)
 module.exports = {
   entry: {
-      main: entries,
+      //main: entries,
       //home: './src/home.js',
-      BaseStyles: './src/styles/BaseStyles.js'
+      BaseStyles: './src/styles/BaseStyles.js',
+      page: './src/views/index.js'
   },
   output: {
     path: path.resolve(__dirname, 'docs'),
@@ -96,9 +98,18 @@ module.exports = {
         template: './src/views/index.hbs',
     }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
+    new WebpackCleanMinifyStyleScripts()
   ],
   optimization: {
-    minimize: false,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          output: {
+            comments: false,
+          },
+        },
+      }),
+    ],
     runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
