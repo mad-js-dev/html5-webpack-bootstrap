@@ -176,18 +176,33 @@ compiler.hooks.emit.tap('emit', compilation => {
           }
       }
       for (let filename of jsAssets) {
-          
-          console.log("*-*-*-*-**-*-*-*-*-*-*-*-*-*--*-*-")
-          let fileContent = compilation.assets[filename]._source.children;
-            fileContent.forEach((item, ind) => {
-                if(typeof item == 'object'){
-                    //item._value = "";
-                    console.log(item._value.substr(0,225)+'...');
-                } else {
-                    console.log(item);
-                }
-            });
-          console.log("*-*-*-*-**-*-*-*-*-*-*-*-*-*--*-*-")
+          if(compilation.assets[filename]._source != undefined){//Blocks webpackdevserver
+              console.log("*-*-*-*-**-*-*-*-*-*-*-*-*-*--*-*-")
+              console.log(compilation.assets[filename]._source.children)
+              let fileContent = compilation.assets[filename]._source.children;
+              let extraBlock = false, closeBlock = false;
+              let blockTitle = '';
+                fileContent.forEach((item, ind) => {
+                    if(ind > 1 || ind < fileContent.length){
+                        if(typeof item == 'object'){
+                            //item._value = "";
+                            //console.log(item._value.substr(0,225), extraBlock, closeBlock);
+                        } else if(typeof item == 'string') {
+                            if(item.includes('scss'))extraBlock=true;
+                            blockTitle = item
+                            if(item.includes('/***/ })'))closeBlock=true;
+                            //console.log(item);
+                            //console.log(item, `extraBlock: ${item.includes('scss')}`);
+                        }
+
+                        if(extraBlock || closeBlock) fileContent[ind] = '//scss';
+                        if(closeBlock)closeBlock=false, extraBlock = false;//Reset flags
+                    }
+                });
+              console.log(fileContent);
+              console.log("*-*-*-*-**-*-*-*-*-*-*-*-*-*--*-*-")
+              
+          }
       }
   
 });
