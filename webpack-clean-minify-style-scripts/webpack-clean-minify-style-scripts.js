@@ -154,20 +154,21 @@ compiler.hooks.emit.tap('emit', compilation => {
       for (let filename of Object.keys(compilation.assets)) {
         switch(filename.split('.').pop()){
             case 'css':
-                console.log(`WebpackCleanMinifyStyleScripts: Css file output found:${ filename }`);
-                cssAssets.push({filename});
+                //console.log(`WebpackCleanMinifyStyleScripts: Css file output found:${ filename }`);
+                cssAssets.push({filename, modules:[]});
                 break;
         }
       }
-    
-      console.log(cssAssets, "Searching for Js coincidences");
+//        console.log('*************************')
+//        console.log(cssAssets, "Searching for Js coincidences");
+//        console.log('*************************')
       for (let filename of Object.keys(compilation.assets)) {
           switch(filename.split('.').pop()){
             case 'js':
                 for (let cssAsset of cssAssets) {
-                      //console.log(cssAsset, filename)
+//                      console.log(cssAsset, filename)
                       if(filename.split('.').shift() == cssAsset.filename.split('.').shift()) {
-                        console.log(`WebpackCleanMinifyStyleScripts: JS coincidence found:${ filename }`);
+                        //console.log(`WebpackCleanMinifyStyleScripts: JS coincidence found:${ filename }`);
                         //console.log(compilation.assets[filename]);
                         jsAssets.push(filename);
                       }
@@ -175,10 +176,16 @@ compiler.hooks.emit.tap('emit', compilation => {
                 break;
           }
       }
+    
+//        console.log('*************************')
+//        console.log(jsAssets, "Searching for Js coincidences");
+//        console.log('*************************')
       for (let filename of jsAssets) {
           if(compilation.assets[filename]._source != undefined){//Blocks webpackdevserver
-              console.log("*-*-*-*-**-*-*-*-*-*-*-*-*-*--*-*-")
-              console.log(compilation.assets[filename]._source.children)
+              let fileNameString = filename.substr(0, filename.indexOf('.'));
+              //console.log('----------------------------------')
+              //console.log(compilation.assets[filename]._source.children)
+              //console.log('----------------------------------')
               let fileContent = compilation.assets[filename]._source.children;
               let extraBlock = false, closeBlock = false;
               let blockTitle = '';
@@ -186,25 +193,118 @@ compiler.hooks.emit.tap('emit', compilation => {
                     if(ind > 1 || ind < fileContent.length){
                         if(typeof item == 'object'){
                             //item._value = "";
-                            //console.log(item._value.substr(0,225), extraBlock, closeBlock);
+                            let header = 'eval("\\n\\n__webpack_require__(/*! '.length;//set intial point of search
+                            let nameEnd = null;
+                            let elem = item._value;
+                            let closeLoop = false;
+                            //console.log(elem.length)
+                            
+                            //----Look for __webpack_require__ and set ');' as close elem
+                            while(elem.indexOf('scss', header)!= -1 && !closeLoop){
+//                                console.log('******');
+//                                console.log('Current header:'+ header, 'Next end:'+elem.indexOf('scss', header))
+                                if(elem.indexOf('// extracted by mini-css-extract-plugin') != -1){
+                                    closeLoop = true;  
+//                                    console.log('Full block dedicated to css');
+                                    item._value = "//Needless css";
+                                } else if(elem.indexOf('scss', header) != -1) {
+                                    //console.log(elem.indexOf('scss'), item._value.substr(0,225));
+                                    let blockpath = elem.substr(0, elem.indexOf('.scss', header));//get full path without extension
+                                    let blockname = blockpath.substr(header.length);
+                                    blockname = blockname.substr(blockname.lastIndexOf('/')+1);
+                                    cssAssets.forEach(obj => {
+                                        if(obj.filename == fileNameString+'.css' && !obj.modules.includes(blockname)) {
+                                            
+                                            obj.modules.push(blockname);
+                                        }
+                                    })
+                                    header = elem.indexOf('.scss', header) + '.scss'.length;
+//                                    console.log(header, elem.length)
+                                } else {
+                                  closeLoop = true;  
+                                }
+                                
+//                                console.log('******');
+                            }
                         } else if(typeof item == 'string') {
-                            if(item.includes('scss'))extraBlock=true;
-                            blockTitle = item
-                            if(item.includes('/***/ })'))closeBlock=true;
-                            //console.log(item);
-                            //console.log(item, `extraBlock: ${item.includes('scss')}`);
+                            if(item.search('.scss') != -1){
+                                extraBlock=true;
+                                if(item.includes('/***/ })'))closeBlock=true;
+                                //console.log(item);
+                                //console.log(item, `extraBlock: ${item.includes('scss')}`);
+                            }
                         }
-
-                        if(extraBlock || closeBlock) fileContent[ind] = '//scss';
+                        
+                        if(extraBlock || closeBlock && extraBlock) fileContent[ind] = '//scss'/*, cssAssets[filename].modules.push()*/;
                         if(closeBlock)closeBlock=false, extraBlock = false;//Reset flags
                     }
                 });
-              console.log(fileContent);
-              console.log("*-*-*-*-**-*-*-*-*-*-*-*-*-*--*-*-")
               
           }
       }
-  
+      console.log(cssAssets);
+        
+    
+      for (let file of jsAssets) {
+        if(compilation.assets[file]._source != undefined){//Blocks webpackdevserver
+          let extraBlock = false, closeBlock = false, possibleExtraBlock = null, tempValue = '';
+          let fileName = file.substr(0, file.indexOf('.')), blockTitle = null;//trim file extension
+          let fileContent = compilation.assets[file]._source.children;
+          let header = 'eval("\\n\\n__webpack_require__(/*! ';
+          fileContent.forEach((item, ind) => {
+              if(ind > 1 || ind < fileContent.length){
+                    if(typeof item == 'object'){
+                        if(possibleExtraBlock>0) {
+                            console.log("''''''''''''''''''''''''''''");
+                            console.log(item._value)
+                            
+                            
+                            let cursor = 0;
+                            let searchStart ='\\n\\n__webpack_require__';
+                            let searchFilenameExtension = '.scss';
+                            let searchEnd = ');';
+                            let tempItem = item._value;
+                            let carriageReturn = '\n\n';
+                            while(tempItem.indexOf(searchStart, cursor) != -1){
+                                let start = tempItem.indexOf(searchStart, cursor);
+                                let sassFileEnd = tempItem.indexOf(searchFilenameExtension, start) - searchFilenameExtension.length;
+                                let sassFileStart = tempItem.lastIndexOf('/', sassFileEnd);
+                                let end = tempItem.indexOf(searchEnd, start)+ searchEnd.length;
+                                console.log(start, end);
+                                
+                                if(start != -1 && end != -1 && sassFileEnd != -1 && sassFileStart != -1) {
+                                    let path = tempItem.substr(sassFileStart, sassFileEnd);
+                                    cssAssets.forEach(obj => {
+                                        if(obj.filename == fileName+'.css'){
+                                            obj.modules.forEach(module => {
+                                                console.log('*', path);
+                                                if(path.indexOf(module)){
+                                                    let before= tempItem.substr(0, start)
+                                                    let after = tempItem.substr(end, item._value.length)
+                                                    tempItem = before+after;
+                                                    console.log('---',tempItem);
+                                                }
+                                            });
+                                        }
+                                    })
+                                }
+                                cursor = end;
+                            }
+                            console.log(tempItem);
+                            console.log("''''''''''''''''''''''''''''");
+                        }
+                    } else if(typeof item == 'string') {
+                        if(!possibleExtraBlock && item.includes(fileName))possibleExtraBlock=ind;
+                        if(possibleExtraBlock)
+                        blockTitle = item
+                        if(item.includes('/***/ })'))closeBlock=true;
+                        //console.log(item);
+                        //console.log(item, `extraBlock: ${item.includes('scss')}`);
+                    }
+              }
+          });
+      }
+    }
 });
 compiler.hooks.afterEmit.tap('afterEmit',function(compilation){
   //生成资源到 output 目录之后。  18
@@ -234,3 +334,27 @@ compiler.hooks.watchClose.tap('watchClose',function(){
 }
 
 module.exports = WebpackCleanMinifyStyleScripts;
+
+/*cssAssets.forEach(obj => {
+    if(obj.filename == fileName+'.css') {
+        obj.modules.forEach((sassFilename, ind) => {
+            if(item._value.search(sassFilename+'.scss')){
+               let firstSentenceStart = 5;//takes eval out
+               let firstSentenceEnd = item._value.search(';') + 1;
+               let m = 0;
+               console.log(tempValue, item._value);
+               while(m<item._value.length){
+                   if(m >= firstSentenceStart && m <= firstSentenceEnd) {
+                       tempValue = item._value.substr(0, firstSentenceStart)+item._value.substr(firstSentenceEnd, item._value.length+1)
+                       //TODO. check if content only have a surcemap properly
+                       //let isEmpty = tempValue.search('\\n\\n//# sourceURL=webpack:///./src/styles/'+fileName+'}.js?");')
+                       //if(isEmpty)extraBlock=true;
+                       //----------------------------------------------------------
+                       console.log(tempValue, firstSentenceStart, firstSentenceEnd);
+                   }
+                   m++;
+               }
+            }
+        })
+    }
+})*/
