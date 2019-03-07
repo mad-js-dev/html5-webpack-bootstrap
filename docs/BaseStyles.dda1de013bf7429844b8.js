@@ -8,7 +8,9 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\n__webpack_require__(/*! ./base.scss */ \"./src/styles/base.scss\");\n\n__webpack_require__(/*! ./foo.scss */ \"./src/styles/foo.scss\");\n\n//# sourceURL=webpack:///./src/styles/BaseStyles.js?");
+eval("\n//# sourceURL=webpack:///./src/styles/BaseStyles.js?");
 
 /***/ }),
-//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss//scss
+
+
+},[["./src/styles/BaseStyles.js","runtime"]]]);
