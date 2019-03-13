@@ -1,6 +1,32 @@
 class WebpackCleanMinifyStyleScripts {
+  constructor(options = {}) {
+      this.srcPath = options.srcFolder.substr(options.srcFolder.lastIndexOf('\\')+1);
+      
+      console.log(this.srcPath)
+  }
   // Define `apply` as its prototype method which is supplied with compiler as its argument
   apply(compiler) {
+  compiler.hooks.compilation.tap("compilation", compilation => {
+      compilation.plugin("succeed-module", module => {
+        // this will be called for every successfully built module, but before it's parsed and
+        // its dependencies are built. The built source is available as module._source.source()
+        // and you can add additional dependencies like so:
+          if(module.rawRequest != undefined) {
+              let modulePath = module.rawRequest;
+              if(modulePath.includes('scss') && modulePath.substr(0,2) != '!!'){
+                //console.log('*****************************')
+                //console.log(module.rawRequest)  
+                  module._source = ''
+                //console.log(module._source)  
+              } else if (modulePath.includes('js') && modulePath.includes(this.srcPath) && modulePath.substr(0,2) != '!!' && modulePath.substr(1,2) != ':\\') {
+                console.log('*****************************')
+                console.log(module.rawRequest)    
+                  
+                console.log(module._source)  
+              }
+          } 
+      })
+    })
     compiler.hooks.emit.tap('emit', compilation => {
           //console.log(Object.keys(compilation.assets));
           //console.log(compilation.assets);
@@ -8,7 +34,7 @@ class WebpackCleanMinifyStyleScripts {
           this.cssAssets = [];//Stylesheets emited
           this.jsAssets= [];//JS files to be cleaned
 
-          this.searchCssAssets(compilation.assets);
+          /*this.searchCssAssets(compilation.assets);
           this.searchJsAssets(compilation.assets);
           this.removeStylesBlocks(compilation);
           console.log('--------')
@@ -16,8 +42,10 @@ class WebpackCleanMinifyStyleScripts {
           console.log(this.jsAssets);
           console.log('--------')
           this.removeScssRequires(compilation);
-          this.cleanEmptyLines(compilation);
-          /*for (let file of this.jsAssets) {
+          this.cleanEmptyLines(compilation);*/
+        
+          /*
+          for (let file of this.jsAssets) {
                 if(compilation.assets[file]._source != undefined){//Blocks webpackdevserver
                   let extraBlock = false, closeBlock = false, possibleExtraBlock = null, tempValue = '';
                   let fileName = file.substr(0, file.indexOf('.')), blockTitle = null;//trim file extension
@@ -42,21 +70,21 @@ class WebpackCleanMinifyStyleScripts {
               }
             }*/
         
-        for (let filename of this.jsAssets) {
-           if(compilation.assets[filename]._source.children!=undefined) {
+        /*for (let filename of this.jsAssets) {
+           if(compilation.assets[filename]._source != undefined) {
                 let fileContent = compilation.assets[filename]._source.children;
                 console.log(fileContent);
            }
-        }
+        }*/
     });
 
   }
   cleanEmptyLines(compilation) {
           
       for (let filename of this.jsAssets.slice(0).reverse()) {
-        let fileContent = compilation.assets[filename]._source.children;
+        let fileContent = compilation.assets[filename]._source;
         if(fileContent != undefined) {//Dev server blocker
-            console.log(fileContent.slice(0).reverse());
+            //console.log(fileContent.slice(0).reverse());
             /*for(let [key, item] of fileContent.slice(0).reverse()) {
                 let positiveIndex = (fileContent.length-1)-key;
                 console.log(fileContent.length);
@@ -70,7 +98,7 @@ class WebpackCleanMinifyStyleScripts {
   }
   removeScssRequires(compilation) {
       for (let file of this.jsAssets) {
-            if(compilation.assets[file]._source.children != undefined){//Blocks webpackdevserver
+            if(compilation.assets[file]._source != undefined){//Blocks webpackdevserver
               let extraBlock = false, closeBlock = false, possibleExtraBlock = null, tempValue = '';
               let fileName = file.substr(0, file.indexOf('.')), blockTitle = null;//trim file extension
               let fileContent = compilation.assets[file]._source.children;

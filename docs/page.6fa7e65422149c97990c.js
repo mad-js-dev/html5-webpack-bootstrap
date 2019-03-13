@@ -1,5 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["page"],{
 
+/***/ "./src/styles/pageStyles.scss":
+/*!************************************!*\
+  !*** ./src/styles/pageStyles.scss ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("throw new Error('No source available');\n\n//# sourceURL=webpack:///./src/styles/pageStyles.scss?");
+
+/***/ }),
+
 /***/ "./src/views/index.js":
 /*!****************************!*\
   !*** ./src/views/index.js ***!

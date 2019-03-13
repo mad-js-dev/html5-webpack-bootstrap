@@ -98,7 +98,9 @@ module.exports = {
         template: './src/views/index.hbs',
     }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
-    new WebpackCleanMinifyStyleScripts()
+    new WebpackCleanMinifyStyleScripts({
+        srcFolder: path.join(__dirname, 'src'),
+    })
   ],
   optimization: {
     minimizer: [
@@ -123,4 +125,12 @@ module.exports = {
       },
     },
   },
+  devServer: {
+    //publicPath: path.join(__dirname, 'docs/'),
+    contentBase: path.join(__dirname, 'docs'),
+    compress: true,
+    port: 8080,
+    https: true,
+    writeToDisk: true
+  }
 };
