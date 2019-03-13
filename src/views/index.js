@@ -1,5 +1,8 @@
 import "../styles/pageStyles.scss";
 
+var hi = 'world';
+console.log(hi);
+
 class BridePie {
     constructor(...data){
         const width = 540;

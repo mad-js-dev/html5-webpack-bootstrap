@@ -16,13 +16,14 @@ class WebpackCleanMinifyStyleScripts {
               if(modulePath.includes('scss') && modulePath.substr(0,2) != '!!'){
                 //console.log('*****************************')
                 //console.log(module.rawRequest)  
-                  module._source = ''
+                module._source = ''
                 //console.log(module._source)  
               } else if (modulePath.includes('js') && modulePath.includes(this.srcPath) && modulePath.substr(0,2) != '!!' && modulePath.substr(1,2) != ':\\') {
                 console.log('*****************************')
+                console.log(module._source)    
                 console.log(module.rawRequest)    
-                  
-                console.log(module._source)  
+                //console.log(this.removeScssRequire(module._source._value))  
+                //module._source._value = this.removeScssRequire(module._source._value);
               }
           } 
       })
@@ -78,6 +79,21 @@ class WebpackCleanMinifyStyleScripts {
         }*/
     });
 
+  }
+  removeScssRequire(src){
+      let opening = '\n\nrequire("';
+      let closing = ');'
+      let contentSearch = 'scss';
+     
+      let start;
+      while((start = src.indexOf(opening)) != -1){
+        let end = src.indexOf(closing, start) + closing.length;
+        console.log(start,end,src.substr(start, end - start))
+        src = src.replace(src.substr(start, end - start ), '');
+        if(src == '"use strict";')src = '';
+      }
+      console.log(src)
+      return src;
   }
   cleanEmptyLines(compilation) {
           
