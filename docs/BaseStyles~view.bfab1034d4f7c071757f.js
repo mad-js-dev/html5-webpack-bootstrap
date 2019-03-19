@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["BaseStyles~page"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["BaseStyles~view"],{
 
 /***/ "./node_modules/webpack/hot sync ^\\.\\/log$":
 /*!*************************************************!*\

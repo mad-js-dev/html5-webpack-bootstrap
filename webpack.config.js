@@ -30,7 +30,7 @@ module.exports = {
       //main: entries,
       //home: './src/home.js',
       BaseStyles: './src/styles/BaseStyles.js',
-      page: './src/views/index.js'
+      view: './src/views/index.js'
   },
   output: {
     path: path.resolve(__dirname, 'docs'),

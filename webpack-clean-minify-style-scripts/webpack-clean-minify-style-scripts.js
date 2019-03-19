@@ -2,6 +2,7 @@ class WebpackCleanMinifyStyleScripts {
   constructor(options = {}) {
       this.srcPath = options.srcFolder.substr(options.srcFolder.lastIndexOf('\\')+1);
       this.removeModules = [];
+      this.stylesScripts = [];
       this.stylesFiles = [];
       //console.log(this.srcPath)
   }
@@ -9,184 +10,194 @@ class WebpackCleanMinifyStyleScripts {
   apply(compiler) {
   compiler.hooks.thisCompilation.tap("thisCompilation", (compilation, compilationParams) => {
       compilation.hooks.buildModule.tap("buildModule", module => {
-          console.log(module.rawRequest)
           if(module.rawRequest != undefined) {
               let modulePath = module.rawRequest;
               if(modulePath.includes('scss') && modulePath.substr(0,2) != '!!'){
-                console.log('Module added to remove list: '+module.rawRequest) 
-                for (let key of Object.keys(module.issuer)) {  
-                    //console.log(key);
-                }
-                  
-                //console.log(module.issuer._source)
-                //module.issuer._source._value = this.removeScssRequire(module.issuer._source._value)
-                //console.log(module._chunks)
-                //console.log(module.profile)
-                //console.log(module._source)
-                //console.log(module.resource)
-
+                console.log('Module added to remove list: '+modulePath) 
                 this.removeModules.push(module.rawRequest);
               } else if (modulePath.includes('js') && modulePath.includes(this.srcPath) && modulePath.substr(0,2) != '!!' && modulePath.substr(1,2) != ':\\') {
-                //console.log(module.rawRequest)    
-              }/*  else if (modulePath.includes('css')) {
-                console.log('****'+module.rawRequest)    
-              }*/
+                console.log('Module added to js list: '+module.rawRequest) 
+                this.stylesScripts.push(module.rawRequest);
+              }
           } 
           
           console.log(this.removeModules)
+          console.log(this.stylesScripts)
       });
-      compilation.hooks.succeedModule.tap("succeedModule", module => {
-          let toRemove = []
-          
-          /*module.dependencies.forEach( (dependency, index, arr) => {
-                console.log('succeedModule: '+dependency.request)
-              if(this.removeModules.indexOf(dependency.request)!= -1){
-                console.log(this.removeModules, dependency.request)
-                console.log(dependency.request)
-
-                module.dependencies = arr.splice(index, 1)
-               }
-          });
-          console.log('---')*/
-      });
-      
-      compilation.hooks.optimizeDependencies.tap("optimizeDependencies", modules => {
-          //console.log(modules[0]);
-          modules.forEach( module => {
-              /*console.log('--------------');
-                  for (let key of Object.keys(module)) {  
-                    console.log(key);
-                  }
-              console.log('--------------');*/
-              //console.log(module.name);
-              //console.log(module.dependencies);
-              /*let toRemove = []
-              module.dependencies.forEach( (dependency, index, arr) => {
-                  if(this.removeModules.indexOf(dependency.request)!= -1){
-                    console.log(this.removeModules, dependency.request)
-                    console.log(dependency.request)
-                     
-                    module.dependencies = arr.splice(index, 1)
-                   }
-              });*/
-          })
-          //console.log('*******');
-      });
+     
   });
-  compiler.hooks.shouldEmit.tap("shouldEmit", compilation => {
-    for (let key of Object.keys(compilation)) {  
-        //console.log(key);
-      }
-      for (let key of Object.keys(compilation.assets)) {  
-          console.log(key)
-        //console.log([key])
-          if(key.includes('css')){
-              console.log('Module added to stylesfiles list: '+key) 
-          }
-      }
-      
+  compiler.hooks.compilation.tap("compilation", (compilation, compilationParams) => {
+        for (let key of Object.keys(compilation)) {  
+              //console.log(compilation[key]);
+         }
+         //console.log('---',compilation.name)
+     compilation.hooks.succeedModule.tap("succeedModule", module => {
+         
+     });
   })
   compiler.hooks.compilation.tap("compilation", compilation => {
-      console.log(compilation.modules);
-      /*compilation.plugin("buildModule", module => {
-          //console.log(module.rawRequest)
-          if(module.rawRequest != undefined) {
-              let modulePath = module.rawRequest;
-              if(modulePath.includes('scss') && modulePath.substr(0,2) != '!!'){
-                console.log('Module added to remove list: '+module.rawRequest)  
-                this.removeModules.push(module.rawRequest);
-              } else if (modulePath.includes('js') && modulePath.includes(this.srcPath) && modulePath.substr(0,2) != '!!' && modulePath.substr(1,2) != ':\\') {
-                //console.log(module.rawRequest)    
-              }
-          } 
-      });*/
-      
-      compilation.hooks.buildModule.tap("buildModule", module => {
-          //console.log(module.rawRequest)
-          if(module.rawRequest != undefined) {
-              let modulePath = module.rawRequest;
-              if(modulePath.includes('scss') && modulePath.substr(0,2) != '!!'){
-                //console.log(module.rawRequest)  
-              } else if (modulePath.includes('js') && modulePath.includes(this.srcPath) && modulePath.substr(0,2) != '!!' && modulePath.substr(1,2) != ':\\') {
-                //console.log(module.rawRequest)    
-              }
-          } 
-      });
-      compilation.plugin("succeed-module", module => {
-        // this will be called for every successfully built module, but before it's parsed and
-        // its dependencies are built. The built source is available as module._source.source()
-        // and you can add additional dependencies like so:
-          if(module.rawRequest != undefined) {
-              let modulePath = module.rawRequest;
-              if(modulePath.includes('scss') && modulePath.substr(0,2) != '!!'){
-                //console.log('*****************************')
-                //console.log(module.rawRequest)  
-                //module._source = ''
-                //console.log(module._source)  
-              } else if (modulePath.includes('js') && modulePath.includes(this.srcPath) && modulePath.substr(0,2) != '!!' && modulePath.substr(1,2) != ':\\') {
-                //console.log('*****************************')
-                //console.log(module._source)    
-                //console.log(module.rawRequest)    
-                //console.log(this.removeScssRequire(module._source._value))  
-                //module._source._value = this.removeScssRequire(module._source._value);
-              }
-          } 
-      })
-      //optimizeDependencies
-    })
-    compiler.hooks.emit.tap('emit', compilation => {
-          //console.log(Object.keys(compilation.assets));
+      // return true to emit the output, otherwise false
+        this.cssAssets = [];//Stylesheets emited
+        this.jsAssets= [];//JS files to be cleaned
+        for (let key of Object.keys(compilation.assets)) {  
+            console.log(key)
+            //console.log(key.substr(0, key.indexOf('.'))+key.substr(key.lastIndexOf('.')));
 
-          this.cssAssets = [];//Stylesheets emited
-          this.jsAssets= [];//JS files to be cleaned
-//          for (let filename of Object.keys(compilation.assets)) {  
-//            console.log(filename);
-//          }
-          /*this.searchCssAssets(compilation.assets);
-          this.searchJsAssets(compilation.assets);
-          this.removeStylesBlocks(compilation);
-          console.log('--------')
-          console.log(this.cssAssets);
-          console.log(this.jsAssets);
-          console.log('--------')
-          this.removeScssRequires(compilation);
-          this.cleanEmptyLines(compilation);*/
+            if(key.indexOf('~')==-1) {
+                switch(key.substr(key.lastIndexOf('.'))){
+                    case '.css':
+                        console.log('**',key.substr(0, key.indexOf('.')));
+                        this.cssAssets.push(key.substr(0, key.indexOf('.')))
+                        break;
+                    case '.js':
+                        this.jsAssets.push(key.substr(0, key.indexOf('.')))
+                        break;
+                }
+            }
+         }
+      
+        console.log('--',this.cssAssets);
+        console.log('--',this.jsAssets);
+      
+         for (let key of Object.keys(compilation.assets)) {  
+            if(this.cssAssets.find( 
+                (elem) => { return (key.substr(0, key.indexOf('.')) == elem && key.indexOf('.css') == -1) }
+            )) {
+                console.log(compilation.assets[key]);
+                
+            }
+
+         }
+  })
+      
+  compiler.hooks.shouldEmit.tap('shouldEmit', (compilation) => {
+        // return true to emit the output, otherwise false
+        this.cssAssets = [];//Stylesheets emited
+        this.jsAssets= [];//JS files to be cleaned
+        for (let key of Object.keys(compilation.assets)) {  
+            console.log(key)
+            //console.log(key.substr(0, key.indexOf('.'))+key.substr(key.lastIndexOf('.')));
+
+            if(key.indexOf('~')==-1) {
+                switch(key.substr(key.lastIndexOf('.'))){
+                    case '.css':
+                        console.log('**',key.substr(0, key.indexOf('.')));
+                        this.cssAssets.push(key.substr(0, key.indexOf('.')))
+                        break;
+                    case '.js':
+                        this.jsAssets.push(key.substr(0, key.indexOf('.')))
+                        break;
+                }
+            }
+         }
+      
+//        console.log('--',this.cssAssets);
+//        console.log('--',this.jsAssets);
+      
+         for (let key of Object.keys(compilation.assets)) {  
+            if(this.cssAssets.find( 
+                (elem) => { return (key.substr(0, key.indexOf('.')) == elem && key.indexOf('.css') == -1) }
+            )) {
+                //console.log(compilation.assets[key]._source.children);
+                let fileContent = compilation.assets[key]._source.children;
+                let extraBlock = false, closeBlock = false, delimiter= null;
+
+                    //console.log(compilation.assets[key]._source.children)  
+                compilation.assets[key]._source.children.forEach((elem, ind, arr) => {
+                    let fileNameString = key.substr(0, key.indexOf('.'));
+
+                    if(typeof elem == 'object'){
+                      //let closeLoop = this.removeCssRelatedObjects(item, fileNameString);
+                    } else if(typeof elem == 'string') {
+                        if(elem.search('.scss') != -1)extraBlock=true,delimiter=false;
+                        if(elem.includes('/***/ })') && extraBlock){
+                            closeBlock=true;
+                            if(arr[ind+1] == ',\n') {
+                               delimiter = true
+                               closeBlock = false;
+                             }else {
+                               delimiter = false
+                             }
+                            console.log(delimiter)
+                        }
+                        //if(elem.includes(',') && closeBlock) delimiter = true;
+                    }
+                    console.log('*-*', delimiter, compilation.assets[key]._source.children[ind] )
+                    if(extraBlock || closeBlock && extraBlock || delimiter && extraBlock){
+                        compilation.assets[key]._source.children[ind] = '';
+                        if(closeBlock && !delimiter || delimiter && !closeBlock) {
+                            extraBlock = false, closeBlock = false, delimiter = null;
+                        }
+                    }
+//                   
+                })
+                
+                
+//                for (let [line, ind] of compilation.assets[key]._source.children) {
+//                    console.log(line)  
+//                    let fileNameString = key.substr(0, key.indexOf('.'));
+//
+//                  let fileContent = compilation.assets[key]._source.children;
+//                  let extraBlock = false, closeBlock = false, delimiter= false;
+//                  let blockTitle = '';
+//                    
+//                  if(typeof line == 'object'){
+//                        //let closeLoop = this.removeCssRelatedObjects(item, fileNameString);
+//                  } else if(typeof line == 'string') {
+//                        if(line.search('.scss') != -1)extraBlock=true,delimiter=false;
+//                        if(line.includes('/***/ })') && extraBlock)closeBlock=true;
+//                        if(line.includes(',') && closeBlock) delimiter = true;
+//                  }
+//                    
+//                  if(extraBlock || closeBlock && extraBlock || delimiter) compilation.assets[key]._source.children[ind] = '';
+//                    
+//                }
+            }
+
+         }
+        for (let module of compilation._modules) { 
+            
+            /*console.log(this.removeModules);
+            console.log(this.stylesScripts);*/
+            if(this.stylesScripts.find(elem => {return (module[1].rawRequest==elem)})) {
+                //console.log(module[1].rawRequest);
+                for (let key of Object.keys(module)) {  
+                    if(module[key].source!=undefined){
+                        module[key]._source._value = this.removeScssRequire(module[key]._source._value);
+                        //console.log(key, module[key]);
+                        
+                        //remove style blocks
+                        
+                    }
+                }
+                
+            } else {
+                      
+            }
+         }
+        //console.log(compilation.name)
         
-          /*
-          for (let file of this.jsAssets) {
-                if(compilation.assets[file]._source != undefined){//Blocks webpackdevserver
-                  let extraBlock = false, closeBlock = false, possibleExtraBlock = null, tempValue = '';
-                  let fileName = file.substr(0, file.indexOf('.')), blockTitle = null;//trim file extension
-                  let fileContent = compilation.assets[file]._source.children;
-                  let header = 'eval("\\n\\n__webpack_require__(/*! ';
-                  fileContent.forEach((item, ind) => {
-                      if(ind > 1 || ind < fileContent.length){
-                            if(typeof item == 'object'){
-                                if(possibleExtraBlock>0) {
-                                    item._value = this.removeStatement(item, fileName);
-                                }
-                            } else if(typeof item == 'string') {
-                                if(!possibleExtraBlock && item.includes(fileName))possibleExtraBlock=ind;
-                                if(possibleExtraBlock)
-                                blockTitle = item
-                                if(item.includes(' })'))closeBlock=true;
-                                //console.log(item);
-                                //console.log(item, `extraBlock: ${item.includes('scss')}`);
-                            }
-                      }
-                  });
-              }
-            }*/
         
-        /*for (let filename of this.jsAssets) {
-           if(compilation.assets[filename]._source != undefined) {
-                let fileContent = compilation.assets[filename]._source.children;
-                console.log(fileContent);
-           }
-        }*/
+        return true;
+    });
+      
+    compiler.hooks.afterEmit.tap('afterEmit', compilation => {
+        for (let key of Object.keys(compilation.assets)) {  
+            //console.log(key.substr(0, key.indexOf('.')));
+            
+        };
+        
+        for (let key of Object.keys(compilation.assets)) {  
+              //console.log(key.substr(0, key.indexOf('.'))+key.substr(key.lastIndexOf('.')));
+         }
+        compilation.hooks.optimize.tap("optimize", module => {
+          //console.log(module)
+        });
     });
 
   }
+    
+    
   removeScssRequire(src){
       let opening = '\n\nrequire("';
       let closing = ');'
@@ -195,11 +206,11 @@ class WebpackCleanMinifyStyleScripts {
       let start;
       while((start = src.indexOf(opening)) != -1){
         let end = src.indexOf(closing, start) + closing.length;
-        console.log(start,end,src.substr(start, end - start))
+        //console.log(start,end,src.substr(start, end - start))
         src = src.replace(src.substr(start, end - start ), '');
-        if(src == '"use strict";')src = '';
+        if(src == '"use strict";')src = '//file to be removed';
       }
-      console.log(src)
+      //console.log(src)
       return src;
   }
   cleanEmptyLines(compilation) {
@@ -220,7 +231,7 @@ class WebpackCleanMinifyStyleScripts {
       }
   }
   removeScssRequires(compilation) {
-      for (let file of this.jsAssets) {
+      for (let file of this.stylesScripts) {
             if(compilation.assets[file]._source != undefined){//Blocks webpackdevserver
               let extraBlock = false, closeBlock = false, possibleExtraBlock = null, tempValue = '';
               let fileName = file.substr(0, file.indexOf('.')), blockTitle = null;//trim file extension

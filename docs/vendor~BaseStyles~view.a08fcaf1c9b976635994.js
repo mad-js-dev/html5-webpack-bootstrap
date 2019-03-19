@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["vendor~BaseStyles~page"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["vendor~BaseStyles~view"],{
 
 /***/ "./node_modules/ansi-html/index.js":
 /*!*****************************************!*\
