@@ -4,6 +4,10 @@ class WebpackCleanMinifyStyleScripts {
       this.removeModules = [];
       this.stylesScripts = [];
       this.stylesFiles = [];
+      this.cssAssets = [];//Stylesheets emited
+      this.jsAssets= [];//JS files emited
+      this.cssAssetNames = [];//Stylesheets file names w/o extension
+      
       //console.log(this.srcPath)
   }
   // Define `apply` as its prototype method which is supplied with compiler as its argument
@@ -13,33 +17,23 @@ class WebpackCleanMinifyStyleScripts {
           if(module.rawRequest != undefined) {
               let modulePath = module.rawRequest;
               if(modulePath.includes('scss') && modulePath.substr(0,2) != '!!'){
-                console.log('Module added to remove list: '+modulePath) 
+                //console.log('Module added to remove list: '+modulePath) 
                 this.removeModules.push(module.rawRequest);
               } else if (modulePath.includes('js') && modulePath.includes(this.srcPath) && modulePath.substr(0,2) != '!!' && modulePath.substr(1,2) != ':\\') {
-                console.log('Module added to js list: '+module.rawRequest) 
+                //console.log('Module added to js list: '+module.rawRequest) 
                 this.stylesScripts.push(module.rawRequest);
               }
           } 
           
-          console.log(this.removeModules)
-          console.log(this.stylesScripts)
+          //console.log(this.removeModules)
+          //console.log(this.stylesScripts)
       });
      
   });
-  compiler.hooks.compilation.tap("compilation", (compilation, compilationParams) => {
-        for (let key of Object.keys(compilation)) {  
-              //console.log(compilation[key]);
-         }
-         //console.log('---',compilation.name)
-     compilation.hooks.succeedModule.tap("succeedModule", module => {
-         
-     });
-  })
+  
   compiler.hooks.compilation.tap("compilation", compilation => {
       // return true to emit the output, otherwise false
-        this.cssAssets = [];//Stylesheets emited
-        this.jsAssets= [];//JS files to be cleaned
-        for (let key of Object.keys(compilation.assets)) {  
+        /*for (let key of Object.keys(compilation.assets)) {  
             console.log(key)
             //console.log(key.substr(0, key.indexOf('.'))+key.substr(key.lastIndexOf('.')));
 
@@ -54,104 +48,131 @@ class WebpackCleanMinifyStyleScripts {
                         break;
                 }
             }
-         }
+         }*/
       
-        console.log('--',this.cssAssets);
+        /*console.log('--',this.cssAssets);
         console.log('--',this.jsAssets);
       
          for (let key of Object.keys(compilation.assets)) {  
             if(this.cssAssets.find( 
                 (elem) => { return (key.substr(0, key.indexOf('.')) == elem && key.indexOf('.css') == -1) }
             )) {
-                console.log(compilation.assets[key]);
+                //console.log(compilation.assets[key]);
                 
             }
 
-         }
+         }*/
   })
       
   compiler.hooks.shouldEmit.tap('shouldEmit', (compilation) => {
         // return true to emit the output, otherwise false
-        this.cssAssets = [];//Stylesheets emited
-        this.jsAssets= [];//JS files to be cleaned
+        let blockOutput = false;
         for (let key of Object.keys(compilation.assets)) {  
-            console.log(key)
+            //console.log(key)
             //console.log(key.substr(0, key.indexOf('.'))+key.substr(key.lastIndexOf('.')));
 
             if(key.indexOf('~')==-1) {
                 switch(key.substr(key.lastIndexOf('.'))){
                     case '.css':
-                        console.log('**',key.substr(0, key.indexOf('.')));
-                        this.cssAssets.push(key.substr(0, key.indexOf('.')))
+                        //console.log('**',key.substr(0, key.indexOf('.')));
+                        this.cssAssets.push(key)
+                        this.cssAssetNames.push(key.substr(0, key.indexOf('.')))
                         break;
                     case '.js':
-                        this.jsAssets.push(key.substr(0, key.indexOf('.')))
+                        this.jsAssets.push(key)
                         break;
                 }
             }
          }
       
 //        console.log('--',this.cssAssets);
+//        console.log('--',this.cssAssetNames);
 //        console.log('--',this.jsAssets);
-      
+//        console.log('---', compilation)
          for (let key of Object.keys(compilation.assets)) {  
-            if(this.cssAssets.find( 
-                (elem) => { return (key.substr(0, key.indexOf('.')) == elem && key.indexOf('.css') == -1) }
+            if(this.cssAssetNames.find( 
+                (elem) => { 
+                    return (key.substr(0, key.indexOf('.')) == elem && key.indexOf('.css') == -1) 
+                }
             )) {
-                //console.log(compilation.assets[key]._source.children);
                 let fileContent = compilation.assets[key]._source.children;
                 let extraBlock = false, closeBlock = false, delimiter= null;
-
-                    //console.log(compilation.assets[key]._source.children)  
+                
+                //console.log(compilation.assets[key]._source.children)  
                 compilation.assets[key]._source.children.forEach((elem, ind, arr) => {
                     let fileNameString = key.substr(0, key.indexOf('.'));
-
+                    
                     if(typeof elem == 'object'){
-                      //let closeLoop = this.removeCssRelatedObjects(item, fileNameString);
+                        
+                        //console.log(fileNameString)
+                        
+                        this.cssAssetNames.forEach(name => {
+                            let cursor = 0;//Cursor pointer used to iterate the search string
+                            let searchStart ='\\n\\n__webpack_require__';//start seach string
+                            let searchFilenameExtension = '.scss';//end filename search string
+                            let searchEnd = ');';//end search string
+                            let tempItem = elem._value;//Copy original to apply changes
+                            let carriageReturn = '\n\n';//used to meassure string offsets
+                            while(tempItem.indexOf(searchStart, cursor) != -1){//repeat while there is another searchStart found past the current cursor pointer
+                                let start = tempItem.indexOf(searchStart, cursor);//searchStart next position
+                                let sassFileEnd = tempItem.indexOf(searchFilenameExtension, start) - searchFilenameExtension.length;//end of filename position
+                                //TODO: this doesnt work properly, I get all comments & stuff
+                                let sassFileStart = tempItem.lastIndexOf('/', sassFileEnd);//start of filename position
+                                let end = tempItem.indexOf(searchEnd, start)+ searchEnd.length;//searchEnd next position
+                                //console.log(start, end);
+
+                                if(start != -1 && end != -1 && sassFileEnd != -1 && sassFileStart != -1) {
+                                    let path = tempItem.substr(sassFileStart, sassFileEnd);
+                                    let before= tempItem.substr(0, start)//substring before cut point
+                                    let after = tempItem.substr(end, elem._value.length)//substring after cut point
+                                    elem._value = before+after;
+                                }
+                                cursor = end;
+                            }
+                        })
+                        //IF ONLY CONTAINS /***/ "./[FILENAME]].js": SET EXTRABLOCK TO TRUE
                     } else if(typeof elem == 'string') {
-                        if(elem.search('.scss') != -1)extraBlock=true,delimiter=false;
+                        //console.log(elem)
+                        console.log(this.stylesScripts);
+                        //****
+                        //IF CONTAINS ANY OF THE stylesScripts MAY BE EXTRA possibleExtra = ind
+                        //****
+                        if(elem.search('.scss') != -1 || RegExp(/\/\*\*\*\/ ([0-9]+):/).test(elem)) extraBlock=true,delimiter=false;
                         if(elem.includes('/***/ })') && extraBlock){
                             closeBlock=true;
                             if(arr[ind+1] == ',\n') {
                                delimiter = true
-                               closeBlock = false;
+                               //console.log('^^^^',ind)
                              }else {
                                delimiter = false
                              }
-                            console.log(delimiter)
+                            //console.log(delimiter)
                         }
-                        //if(elem.includes(',') && closeBlock) delimiter = true;
+                        if(arr[ind+1] == ',\n' && closeBlock) delimiter = true;
                     }
-                    console.log('*-*', delimiter, compilation.assets[key]._source.children[ind] )
-                    if(extraBlock || closeBlock && extraBlock || delimiter && extraBlock){
+                    //console.log('*-*', delimiter, compilation.assets[key]._source.children[ind] )
+                    if(extraBlock || closeBlock && extraBlock){
                         compilation.assets[key]._source.children[ind] = '';
-                        if(closeBlock && !delimiter || delimiter && !closeBlock) {
-                            extraBlock = false, closeBlock = false, delimiter = null;
+//                        
+                        if(closeBlock) {
+                            extraBlock = false, closeBlock = false;
                         }
                     }
+                    if(delimiter) {
+                        compilation.assets[key]._source.children[ind+1] = '';
+                        delimiter=!delimiter;
+                    }
+                    //IF possibleExtra>0 && extrablock && closeBlock loop from possibleExtra till ind setting to ''
 //                   
                 })
                 
                 
-//                for (let [line, ind] of compilation.assets[key]._source.children) {
-//                    console.log(line)  
-//                    let fileNameString = key.substr(0, key.indexOf('.'));
-//
-//                  let fileContent = compilation.assets[key]._source.children;
-//                  let extraBlock = false, closeBlock = false, delimiter= false;
-//                  let blockTitle = '';
-//                    
-//                  if(typeof line == 'object'){
-//                        //let closeLoop = this.removeCssRelatedObjects(item, fileNameString);
-//                  } else if(typeof line == 'string') {
-//                        if(line.search('.scss') != -1)extraBlock=true,delimiter=false;
-//                        if(line.includes('/***/ })') && extraBlock)closeBlock=true;
-//                        if(line.includes(',') && closeBlock) delimiter = true;
-//                  }
-//                    
-//                  if(extraBlock || closeBlock && extraBlock || delimiter) compilation.assets[key]._source.children[ind] = '';
-//                    
-//                }
+
+            } else if (key.indexOf('~'!= -1) && key.indexOf('css')==-1 && key.indexOf('runtime') == -1) {
+                //compilation.assets.splice(key,1);
+                delete compilation.assets[key]
+                //TODO REMOVE SCRIPTS FROM HTML fn
+                console.log('Removed', key)
             }
 
          }
@@ -232,6 +253,8 @@ class WebpackCleanMinifyStyleScripts {
   }
   removeScssRequires(compilation) {
       for (let file of this.stylesScripts) {
+          //console.log(compilation.assets[file])
+          //console.log(file)
             if(compilation.assets[file]._source != undefined){//Blocks webpackdevserver
               let extraBlock = false, closeBlock = false, possibleExtraBlock = null, tempValue = '';
               let fileName = file.substr(0, file.indexOf('.')), blockTitle = null;//trim file extension
@@ -271,6 +294,7 @@ class WebpackCleanMinifyStyleScripts {
                     if(ind > 1 || ind < fileContent.length){
                         if(typeof item == 'object'){
                             let closeLoop = this.removeCssRelatedObjects(item, fileNameString);
+                            removeStatement
                         } else if(typeof item == 'string') {
                             if(item.search('.scss') != -1)extraBlock=true;
                             if(item.includes('/***/ })') && extraBlock)closeBlock=true;
@@ -290,9 +314,7 @@ class WebpackCleanMinifyStyleScripts {
     let nameEnd = null;
     let elem = item._value;
     let closeLoop = false;
-//                                console.log(elem.length)
 
-    //----Look for __webpack_require__ and set ');' as close elem
     while(elem.indexOf('scss', header)!= -1 && !closeLoop){
 //                                    console.log('******');
 //                                    console.log('Current header:'+ header, 'Next end:'+elem.indexOf('scss', header))
@@ -338,7 +360,7 @@ class WebpackCleanMinifyStyleScripts {
       }
   }  
   searchCssAssets(assets) {
-      console.log('WebpackCleanMinifyStyleScripts: looking for css outputs')
+      //console.log('WebpackCleanMinifyStyleScripts: looking for css outputs')
       for (let filename of Object.keys(assets)) {
         switch(filename.split('.').pop()){
             case 'css':
@@ -372,10 +394,10 @@ class WebpackCleanMinifyStyleScripts {
                     obj.modules.forEach(module => {//Check all css exported modules
 //                        console.log('*', path);
                         if(path.indexOf(module)){//if coincidence found
-                            let before= tempItem.substr(0, start)//substring before cur point
+                            let before= tempItem.substr(0, start)//substring before cut point
                             let after = tempItem.substr(end, item._value.length)//substring after cut point
                             tempItem = before+after;
-//                            console.log('---',tempItem);
+//                          console.log('---',tempItem);
                         }
                     });
                 }

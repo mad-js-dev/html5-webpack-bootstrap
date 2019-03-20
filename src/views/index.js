@@ -1,6 +1,6 @@
 import "../styles/pageStyles.scss";
 
-var hi = 'world';
+var hi = 'world1';
 console.log(hi);
 
 class BridePie {
