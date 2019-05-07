@@ -13,10 +13,11 @@ class WebpackCleanMinifyStyleScripts {
 apply(compiler) {
   compiler.hooks.thisCompilation.tap("thisCompilation", (compilation, compilationParams) => {
       compilation.hooks.buildModule.tap("buildModule", module => {
-          //Sets a list of modules to be removed and scripts created due an scss included in a js
+          //Sets a list of modules to be removed and js scripts used as input
           if(module.rawRequest != undefined) {
             
               let modulePath = module.rawRequest;
+              console.log(modulePath);
               if(modulePath.includes('scss') && modulePath.substr(0,2) != '!!'){
                 this.removeModules.push(module.rawRequest);
               } else if (modulePath.includes('js') && modulePath.includes(this.srcPath) && modulePath.substr(0,2) != '!!' && modulePath.substr(1,2) != ':\\') {
@@ -29,7 +30,7 @@ apply(compiler) {
   })
       
   compiler.hooks.shouldEmit.tap('shouldEmit', (compilation) => {
-        //Generates two arrays, one made of css files and another of js to be outputted
+        //Generates two arrays, one made of css files and another of js to be outputted without extensions
         //Ignores any file with the ~ char(Not sure why theyre there)
         for (let key of Object.keys(compilation.assets)) {  
             if(key.indexOf('~')==-1) {
@@ -44,10 +45,15 @@ apply(compiler) {
                 }
             }
          }
-
-        for (let key of Object.keys(compilation.assets)) {  
-            if(this.cssAssetNames.find( 
-                //Looks for coincidences between the current asset name and the  cssAssetNames array to ignore js assets with the same name than the styles assets
+        
+        //Checks for js files that have .scss related extra code to be cleaned
+        for (let key of Object.keys(compilation.assets)) {
+            console.log(key, key.indexOf('~'), key.indexOf('css'), key.indexOf('runtime'), key.indexOf('js'));
+            if (key.indexOf('~') != -1 && key.indexOf('css')==-1 && key.indexOf('runtime') == -1 && key.indexOf('js')!=-1) {
+                //Remove any style file with '~' char in its name from the output
+                delete compilation.assets[key];
+            } else if(this.cssAssetNames.find( 
+                //Checks if the curren asset filename to review js files that may have scss related code in it.
                 (elem) => { 
                     return (key.substr(0, key.indexOf('.')) == elem && key.indexOf('.css') == -1) 
                 }
@@ -55,11 +61,11 @@ apply(compiler) {
                 let fileContent = compilation.assets[key]._source.children;
                 let extraBlock = false, closeBlock = false, delimiter= null, possibleExtra = false, content = '', notExtra = true;
                 compilation.assets[key]._source.children.forEach((elem, ind, arr) => {
+                    //Line by line checking of the assets making use of the comments.
                     let fileNameString = key.substr(0, key.indexOf('.'));
                     
-                    if(typeof elem == 'object'){
-                        
-                        
+                    if(typeof elem == 'object') {
+                        //Search for any webpack_require statement for scss files
                         this.cssAssetNames.forEach(name => {
                             let cursor = 0;//Cursor pointer used to iterate the search string
                             let searchStart ='\\n\\n__webpack_require__';//start seach string
@@ -67,13 +73,14 @@ apply(compiler) {
                             let searchEnd = ');';//end search string
                             let tempItem = elem._value;//Copy original to apply changes
                             let carriageReturn = '\n\n';//used to meassure string offsets
-                            while(tempItem.indexOf(searchStart, cursor) != -1){//repeat while there is another searchStart found past the current cursor pointer
+                            
+                            //Iterates while there are webpack_requires still to be found
+                            while(tempItem.indexOf(searchStart, cursor) != -1){
                                 let start = tempItem.indexOf(searchStart, cursor);//searchStart next position
                                 let sassFileEnd = tempItem.indexOf(searchFilenameExtension, start) - searchFilenameExtension.length;//end of filename position
-                                //TODO: this may not work properly, I get all comments & stuff
                                 let sassFileStart = tempItem.lastIndexOf('/', sassFileEnd);//start of filename position
                                 let end = tempItem.indexOf(searchEnd, start)+ searchEnd.length;//searchEnd next position
-
+                                //removes webpack_require statement
                                 if(start != -1 && end != -1 && sassFileEnd != -1 && sassFileStart != -1) {
                                     let path = tempItem.substr(sassFileStart, sassFileEnd);
                                     let before= tempItem.substr(0, start)//substring before cut point
@@ -83,24 +90,25 @@ apply(compiler) {
                                 cursor = end;
                             }
                         })
-                        //***********
-                        //IF ONLY CONTAINS /***/ "./[FILENAME]].js": SET EXTRABLOCK TO TRUE
-                        //*************
+                        //Checks if there's is no code remaining to be executed in the object.
                         if(possibleExtra && elem._value == 'eval("\\n\\n//# sourceURL=webpack:///'+content+'?");'){
+                            //If that is the case, this means the whole block was created only to serve some dev-server purpouse and could be deleted.
                             extraBlock=true;
                             console.log('object detected to be extra')
                             notExtra = false;
                         } else {
+                            //Given the case we had something else in the input js file besides the styles includes,
+                            //leave the remaining code and set the notExtra bool in order to start the search for the next block
                             console.log('Not an extra object')
                             notExtra = true;
                         }
                         
                     } else if(typeof elem == 'string') {
                         if(!possibleExtra){
-                            //****
-                            //IF CONTAINS ANY OF THE stylesScripts MAY BE EXTRA possibleExtra = ind
-                            //****
-                            
+                            //Initial case and default state(code goes through here when a block has been closed)
+                            //Checks if the current line contains
+                            console.log(this.stylesScripts);
+                            console.log(elem)
                             this.stylesScripts.forEach((filePath) => {
                                 if(elem.indexOf(filePath) != -1){
                                     possibleExtra = ind;
@@ -109,7 +117,8 @@ apply(compiler) {
                             })
                             
                         } else {
-                             if(elem.includes('/***/ })') && extraBlock && !notExtra) {//CHANGE \/ to / inside include to make this work
+                            //if the closing tag has been found and both the main and secondary checks have passed set the line as a block close line.
+                             if(elem.includes('/***/ })') && extraBlock && !notExtra) {
                                 closeBlock=true;
                              }
                         }
@@ -135,7 +144,7 @@ apply(compiler) {
                     
                     //IF possibleExtra>0 && extrablock && closeBlock loop from possibleExtra till ind setting to ''
                     if(possibleExtra && extraBlock && closeBlock && !notExtra) {
-                        for(let n = ind+3; n > possibleExtra-1; n--) { //Not really sure why need those aditions & substractions, but works
+                        for(let n = ind+3; n > possibleExtra-1; n--) { //Not really sure why need those additions & substractions, yeah its moronic... but works.
                             compilation.assets[key]._source.children[n] = '';
                         }
                         
@@ -158,12 +167,9 @@ apply(compiler) {
                 
                 
 
-            } else if (key.indexOf('~'!= -1) && key.indexOf('css')==-1 && key.indexOf('runtime') == -1) {
-                delete compilation.assets[key]
             }
-
          }
-        for (let module of compilation._modules) { 
+        /*for (let module of compilation._modules) { 
             
             if(this.stylesScripts.find(elem => {return (module[1].rawRequest==elem)})) {
                 for (let key of Object.keys(module)) {  
@@ -179,7 +185,7 @@ apply(compiler) {
             } else {
                       
             }
-         }        
+         }  */      
         for (let key of Object.keys(compilation.assets)) { 
             let simpleFilename = key.substr(0, key.indexOf('.'));
             
