@@ -131,6 +131,13 @@ module.exports = {
     compress: true,
     port: 8080,
     https: true,
+    /*
+    https: {
+      key: fs.readFileSync('/path/to/server.key'),
+      cert: fs.readFileSync('/path/to/server.crt'),
+      ca: fs.readFileSync('/path/to/ca.pem'),
+    }
+    */
     writeToDisk: true
   }
 };

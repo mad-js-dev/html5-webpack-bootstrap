@@ -25,6 +25,10 @@ apply(compiler) {
               }
           } 
           
+          
+          
+          
+          
       });
      
   })
@@ -169,23 +173,7 @@ apply(compiler) {
 
             }
          }
-        /*for (let module of compilation._modules) { 
-            
-            if(this.stylesScripts.find(elem => {return (module[1].rawRequest==elem)})) {
-                for (let key of Object.keys(module)) {  
-                        
-                    
-                    if(module[key].source!=undefined){
-                        module[key]._source._value = this.removeScssRequire(module[key]._source._value);
-                        
-                        
-                    }
-                }
-                
-            } else {
-                      
-            }
-         }  */      
+    
         for (let key of Object.keys(compilation.assets)) { 
             let simpleFilename = key.substr(0, key.indexOf('.'));
             
