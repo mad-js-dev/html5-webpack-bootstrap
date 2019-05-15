@@ -17,30 +17,39 @@
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="c-menu c-menu--not-on-top navbar-expand-lg">
       <div class="container">
-        <a class="navbar-brand" href="#" name="Home">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#" name="Home">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" name="About" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" name="Services" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" name="Contact" href="#">Contact</a>
-            </li>
-          </ul>
+        <div class="c-menu__extra-info">
+            <span>Llamanos! XXX XXX XXX</span>  
+            <span>miemail@gmail.com</span>  
+            <span>C/ desconocida, 42 A</span>  
         </div>
+        <div class="c-menu__wrapper">
+            <a class="c-menu__navbar-brand" href="#" name="Home">Start Bootstrap</a>
+        <button class="c-menu__button navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="c-menu__navbar">
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto">
+                <li class="c-menu__nav-item active">
+                  <a class="c-menu__nav-link" href="#" name="Home">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="c-menu__nav-item">
+                  <a class="c-menu__nav-link" name="About" href="#">About</a>
+                </li>
+                <li class="c-menu__nav-item">
+                  <a class="c-menu__nav-link" name="Services" href="#">Services</a>
+                </li>
+                <li class="c-menu__nav-item">
+                  <a class="c-menu__nav-link" name="Contact" href="#">Contact</a>
+                </li>
+              </ul>
+            </div>
+          </div>  
+        </div>
+          
+        
       </div>
     </nav>
 
