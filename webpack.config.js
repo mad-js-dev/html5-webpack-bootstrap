@@ -14,6 +14,11 @@ let pathsToClean = [
   'docs/*.*'
 ]
 
+let productionMode = true;
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    let productionMode = false;
+}
+
 // the clean options to use
 let cleanOptions = {
   root:     __dirname,
@@ -34,7 +39,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'docs'),
-    filename: '[name].[contenthash].js',
+    filename: '[name].[hash].js',
   },
   module: {
     rules: [
@@ -100,7 +105,9 @@ module.exports = {
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
     new WebpackCleanMinifyStyleScripts({
         srcFolder: path.join(__dirname, 'src'),
-    })
+        enable: productionMode
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   optimization: {
     minimizer: [
@@ -130,7 +137,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'docs'),
     compress: true,
     port: 8080,
-    https: true,
+    //https: true,
     /*
     https: {
       key: fs.readFileSync('/path/to/server.key'),
@@ -138,6 +145,7 @@ module.exports = {
       ca: fs.readFileSync('/path/to/ca.pem'),
     }
     */
+    watchContentBase: true,
     writeToDisk: true
   }
 };

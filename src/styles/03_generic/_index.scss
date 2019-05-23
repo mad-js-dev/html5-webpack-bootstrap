@@ -1,3 +1,13 @@
 @import "../../node_modules/bootstrap/scss/root";
 @import "../../node_modules/bootstrap/scss/reboot";
 @import "../../node_modules/bootstrap/scss/type";
+
+hr {
+    margin-left: 0;
+    min-width: 50px;
+    display: inline-block;
+}
+
+body {
+    color: $gray-700;
+}

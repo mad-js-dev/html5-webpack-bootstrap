@@ -7,7 +7,7 @@
     "dev": "webpack --mode development --watch",
     "prod": "webpack --mode production",
     "build": "webpack --mode production",
-    "server": "webpack-dev-server --mode development"
+    "server": "webpack-dev-server --hot --mode development"
   },
   "author": "",
   "license": "ISC",
@@ -41,6 +41,7 @@
     "webpack": "^4.26.1",
     "webpack-clean": "^1.2.3",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "3.1.11"
+    "webpack-dev-server": "3.1.11",
+    "webpack-merge": "^4.2.1"
   }
 }

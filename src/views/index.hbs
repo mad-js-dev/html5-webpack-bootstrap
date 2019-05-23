@@ -2,16 +2,13 @@
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Test project to load bootstrap efficiently using Webpack">
     <meta name="author" content="Brais Vázquez Farré">
     <meta name="theme-color" content="#dc3545"/>
     <title>Shop Homepage - Start Bootstrap Template</title>
-
-   
-
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
   </head>
 
   <body>
@@ -25,7 +22,7 @@
             <span>C/ desconocida, 42 A</span>  
         </div>
         <div class="c-menu__wrapper">
-            <a class="c-menu__navbar-brand" href="#" name="Home">Start Bootstrap</a>
+        <h1><a class="c-menu__navbar-brand" href="#" name="Home">Bussiness name</a></h1>
         <button class="c-menu__button navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="c-menu__navbar">
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -52,41 +49,23 @@
         
       </div>
     </nav>
-
-    <!-- Page Content -->
-    <div class="container">
-
-      <div class="row">
-
-        <div class="col-lg-3">
-
-          <h1 class="my-4">Shop Name</h1>
-          <div class="list-group">
-            <a href="#" name="Category 1" class="list-group-item">Category 1</a>
-            <a href="#" name="Category 2" class="list-group-item">Category 2</a>
-            <a href="#" name="Category 3" class="list-group-item">Category 3</a>
-          </div>
-
-        </div>
-        <!-- /.col-lg-3 -->
-
-        <div class="col-lg-9">
-
-          <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+    <div class="container-fluid">
+         <div class="row">
+        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner" role="listbox">
-              <div class="carousel-item active" role="option">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <div class="carousel-item min-vw-100 active" role="option">
+                <img class="d-block img-fluid" src="http://placehold.it/1900x350" alt="First slide">
               </div>
-              <div class="carousel-item" role="option">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+              <div class="carousel-item min-vw-100" role="option">
+                <img class="d-block img-fluid" src="http://placehold.it/1900x350" alt="Second slide">
               </div>
-              <div class="carousel-item" role="option">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+              <div class="carousel-item min-vw-100" role="option">
+                <img class="d-block img-fluid" src="http://placehold.it/1900x350" alt="Third slide">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" name="Previous image" data-slide="prev">
@@ -98,121 +77,369 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <div id="graph">
-                
-               </div>  
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="./src/assets/img/abundance-batch-bean.jpg" alt="Item One"></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#" name="Item One">Item One</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt="Item Two"></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#" name="Item Two">Item Two</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt="Item Three"></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#" name="Item Three">Item Three</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt="Item Four"></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#" name="Item Four">Item Four</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt="Item Five"></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#" name="Item Five">Item Five</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt="Item Six"></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#" name="Item Six">Item Six</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <!-- /.row -->
-
         </div>
-        <!-- /.col-lg-9 -->
-
-      </div>
-      <!-- /.row -->
-
     </div>
-    <!-- /.container -->
+      
+    <div class="container py-7">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <h2>iMedDoc <span class="text-muted">Dentals</span></h2>
+                <p class="lead">Giving relief from many painful conditions of teeths & creating a higher quality of health and life for you and your family!</p>
+                <hr>
+                <p>Consectetur elit sedo eiusmod tempor incididunt ulabor seda dolore magnaaliqua ut enim veniam quis adipisicing elit sed eiusmod tempor incididunt utlabore eture dolorey magna aliqua.</p>
+                <ul>
+                    <li>Consectetur adipisicing elit sed eiusmod</li>
+                    <li>Tempor incididunt labore dolore magna aliqua.</li>
+                    <li>Enim ad minim veniam quis nostrud exercitation </li>
+                    <li>Ullamco laboris nisi ut aliquip ex ea commodo</li>
+                    <li>Aute irure dolor in reprehenderit in voluptate velit esse</li>
+                </ul>
+            </div>
+            <div class="d-none d-lg-inline-block col-lg-6">
+                <img class="d-block img-fluid float-right" src="http://placehold.it/450x415">
+            </div>
+        </div>
+    </div>
+      
+    <div class="container-fluid bg-light py-6">
+        <div class="container">
+            <div class="row">
+            <div class="col-12 text-center">
+                <h2>Clinic <span class="text-muted">Departaments</span></h2>
+                <p class="col-12 col-md-8 m-auto">Do eiusmod tempor incididunt labore et dolore magna aliqua sed ipsum enim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                <hr>
+                <div class="d-flex justify-content-between flex-column flex-md-row flex-wrap">
+                    <div class="card" style="width:320px;">
+                        <div class="card-body">
+                            <img class="" src="http://placehold.it/100x100">
+                            <hr class="d-block" style="margin: 20px 90px;">
+                            <h3>Lorem ipsum</h3>
+                            <p>Donsect eur elit sedo eiusmod tempor zincididunt ulabore seda dolore.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="width:320px;">
+                        <div class="card-body">
+                            <img class="" src="http://placehold.it/100x100">
+                            <hr class="d-block" style="margin: 20px 90px;">
+                            <h3>Lorem ipsum</h3>
+                            <p>Donsect eur elit sedo eiusmod tempor zincididunt ulabore seda dolore.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="width:320px;">
+                        <div class="card-body">
+                            <img class="" src="http://placehold.it/100x100">
+                            <hr class="d-block" style="margin: 20px 90px;">
+                            <h3>Lorem ipsum</h3>
+                            <p>Donsect eur elit sedo eiusmod tempor zincididunt ulabore seda dolore.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="width:320px;">
+                        <div class="card-body">
+                            <img class="" src="http://placehold.it/100x100">
+                            <hr class="d-block" style="margin: 20px 90px;">
+                            <h3>Lorem ipsum</h3>
+                            <p>Donsect eur elit sedo eiusmod tempor zincididunt ulabore seda dolore.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="width:320px;">
+                        <div class="card-body">
+                            <img class="" src="http://placehold.it/100x100">
+                            <hr class="d-block" style="margin: 20px 90px;">
+                            <h3>Lorem ipsum</h3>
+                            <p>Donsect eur elit sedo eiusmod tempor zincididunt ulabore seda dolore.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="width:320px;">
+                        <div class="card-body">
+                            <img class="" src="http://placehold.it/100x100">
+                            <hr class="d-block" style="margin: 20px 90px;">
+                            <h3>Lorem ipsum</h3>
+                            <p>Donsect eur elit sedo eiusmod tempor zincididunt ulabore seda dolore.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid bg-primary text-white py-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white">Professional Dentists & Advanced Dental Tools</h2>
+                <p class="lead col-12 col-md-8 m-auto">
+                    <div>Llamanos o pide una cita previa</div>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-7">
+        <div class="row">
+            <div class="d-none d-lg-inline-block col-lg-6">
+                <img class="d-block mb-2" src="http://placehold.it/480x300">
+                <img class="d-block" src="http://placehold.it/480x300">
+            </div>
+            <div class="col- 12 col-lg-6">
+                <h2>Why <span class"mute">Choose Us</span></h2>
+                <p class="lead">Do eiusmod tempor incididunt ut labore et dolore magna aliqua sed ipsum enim veniam quis nostrud exercitation ullamco laboris nisiut aliquip.</p>
+                <hr>
+                <div class="accordion" id="accordionExample">
+                    <article class="card">
+                        <header class="card-header" id="headingOne">
+                          <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              Collapsible Group Item #1
+                            </button>
+                          </h2>
+                        </header>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                          <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          </div>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <header class="card-header" id="headingTwo">
+                          <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                              Collapsible Group Item #2
+                            </button>
+                          </h2>
+                        </header>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                          <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          </div>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <header class="card-header" id="headingThree">
+                          <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                              Collapsible Group Item #3
+                            </button>
+                          </h2>
+                        </header>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                          <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid bg-light py-6">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <article class="col-12">
+                        <header class="text-center">
+                            <h2>Clinic Departaments</h2>
+                            <p class="lead lead-light col-12 col-md-8 m-auto">Do eiusmod tempor incididunt labore et dolore magna aliqua sed ipsum enim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                            <hr>                        
+                        </header>
+                        
+                        <article class="">
+                            <div class="row">
+                                <div class="col-7">
+                                    <header><h3>Teeth Whitening Treatment</h3></header>
+                                    <p>
+                                        Consectetur elit sedo eiusmod tempor incididunt ulabor seda dolore magna aliqua uat enim veniam quis adipisicing elit sed eiusmod tempor incididunt ut labore eture dolorey magna aliqua. Ut tempor sed enim ad minim veniam quis nostrud.
+                                    </p>
+                                    <ul>
+                                        <li>Consectetur adipisicing elit sed eiusmod</li>
+                                        <li>Tempor incididunt labore dolore magna aliqua.</li>
+                                        <li>Enim ad minim veniam quis nostrud exercitation</li>
+                                    </ul>
+                                    <a href="#" class="btn btn-secondary text-uppercase">View casestudy</a>
+                                </div>
+                                <div class="col-5">
+                                    <img class="d-block img-fluid" src="http://placehold.it/450x350">
+                                </div>
+                            </div>
+                        </article>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container py-7">
+                <div class="row">
+                    <article class="col-12">
+                        <header class="text-center">
+                            <h2>Equipo medico</h2>
+                            <p class="lead col-12 col-md-8 m-auto">Do eiusmod tempor incididunt labore et dolore magna aliqua sed ipsum enim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                            <hr>                        
+                        </header>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="card">
+                                    <img class="d-block img-fluid" src="http://placehold.it/260x250">
+                                    <div class="card-body text-center">
+                                        <h3>Card title</h3>
+                                        <p>Oficio</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card">
+                                    <img class="d-block img-fluid" src="http://placehold.it/260x250">
+                                    <div class="card-body text-center">
+                                        <h3>Card title</h3>
+                                        <p>Oficio</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card">
+                                    <img class="d-block img-fluid" src="http://placehold.it/260x250">
+                                    <div class="card-body text-center">
+                                        <h3>Card title</h3>
+                                        <p>Oficio</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card">
+                                    <img class="d-block img-fluid" src="http://placehold.it/260x250">
+                                    <div class="card-body text-center">
+                                        <h3>Card title</h3>
+                                        <p>Oficio</p>
+                                    </div>
+                                </div>
+                            </div>                    
+                        
+                        </div>
+                    </article>
+                </div>
+            </div>
+    
+    <div class="container-fluid bg-primary text-white py-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-7">
+                    <h2 class="text-white">iMedDoc <span class"mute">Dentals</span></h2>
+                    <p class="lead text-white">Giving relief from many painful conditions of teeths & creating a higher quality of health and life for you and your family!</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1" class="d-none">Email address</label>
+                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control">
+                                  <option value="volvo">Volvo</option>
+                                  <option value="saab">Saab</option>
+                                  <option value="mercedes">Mercedes</option>
+                                  <option value="audi">Audi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1" class="d-none">Email address</label>
+                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1" class="d-none">Email address</label>
+                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <button type="submit" class="btn btn-primary text-white mb-2">Enviar mensaje</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container py-7">
+                <div class="row">
+                    <article class="col-12">
+                        <header class="text-center">
+                            <h2>Equipo medico</h2>
+                            <p class="font-weight-normal col-12 col-md-8 m-auto">Do eiusmod tempor incididunt labore et dolore magna aliqua sed ipsum enim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                            <hr>                        
+                        </header>
+                        <div class="row">
+                            <div class="col-6">
+                                <article class="card mb-3" style="max-width: 540px;">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-2">
+                                            <img class="d-block img-fluid" src="http://placehold.it/68x68">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="card-body pt-0">
+                                                <p class="card-text font-italic">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                <hr>
+                                                <header class="card-title">
+                                                    <h3>Nombre / titulo</h3>
+                                                    <p>Categoria</p>
+                                                </header>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="col-6">
+                                <article class="card mb-3" style="max-width: 540px;">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-2">
+                                            <img class="d-block img-fluid" src="http://placehold.it/68x68">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="card-body pt-0">
+                                                <p class="card-text font-italic">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                <hr>
+                                                <header class="card-title">
+                                                    <h3>Nombre / titulo</h3>
+                                                    <p>Categoria</p>
+                                                </header>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+       
+                                
+                        </div>
+                        <div class="row mt-7">
+                            <div class="col-6">
+                                <div class="card w-100">
+                                  <img class="card-img-top" src="http://placehold.it/555x400" style="min-height: 390px;">
+                                  <div class="card-body">
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card w-100">
+                                  <div class="card-img-top overflow-hidden"> 
+                                    <iframe class="d-block" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2992.480208987299!2d2.167505973549671!3d41.40709338958029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a2c6a29f2a67%3A0x8c45ca95924d1284!2sCalle+de+San+Antoni+Maria+Claret%2C+106%2C+08025+Barcelona!5e0!3m2!1ses!2ses!4v1558518229487!5m2!1ses!2ses" width="540" height="390" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                  </div>
+                                  <div class="card-body">
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+    
+    
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
