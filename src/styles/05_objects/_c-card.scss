@@ -1,0 +1,42 @@
+.c-card {
+    @extend .card;
+    @extend .mb-4;
+    width:320px;
+    transition: all 0.5s;
+    
+    header {
+        @extend .card-header;
+    }
+    
+    & > div {
+        @extend .card-body;
+        
+        h3, .h3 {
+            transition: all 0.5s;
+        }
+        
+        hr {
+            @extend .d-block; 
+            margin: 20px auto;
+            max-width: 50px;
+            border-bottom: 1px;
+            border-color: $gray-300;
+        }
+    }
+    
+    footer {
+        @extend .card-footer;
+    }
+    
+    //States
+    &:hover {
+        transition: all 0.5s;
+        background-color: $primary;
+        color: $white;
+        
+        h3, .h3 {
+            transition: all 0.5s;
+            color: $white;
+        }
+    }
+}

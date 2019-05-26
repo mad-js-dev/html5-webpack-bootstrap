@@ -1,0 +1,64 @@
+$bg-color: $white;
+$highlight: $primary;
+
+.c-accordion {
+
+	article { 
+		@extend .card;
+		background-color: $bg-color;
+
+		border: 0;
+
+		& > header {
+			@extend .card-header;
+			border: 0;
+			padding-left: 0;
+			background-color: $bg-color;
+
+			button { 
+				@extend .btn;
+				@extend .btn-block;
+				@extend .text-left;
+				
+				padding-left: 0;
+
+				&.collapsed {
+					color: $gray-900;
+				}
+
+				&:not(.collapsed) {
+					color: $gray-900;
+
+					i{
+						color: $primary;
+					}
+				}
+
+				&:hover {
+					color: $primary;
+				}
+
+				&:focus {
+					box-shadow: none;
+				}
+			}
+
+			&.colapsed {
+				color: $highlight; 
+			}
+		}
+ 
+		& > div {
+			//@extend .collapse;
+			//@extend .show;
+			
+
+			& > div {
+				@extend .card-body;
+			    border-left: 1px solid #CCC;
+			    padding: 0 0 0 1.5rem;
+			    margin-left: 0.5rem;
+			}
+		}
+	}
+}

@@ -3,6 +3,19 @@
 @import "../../node_modules/bootstrap/scss/reboot";
 @import "../../node_modules/bootstrap/scss/type";
 
+ul{
+    list-style: none;
+    padding-left: 0;
+    color: $gray-900;
+    li {
+        i {
+            color: $gray-500;
+        }
+        
+        line-height: 2rem;
+    }
+}
+
 .lead {
     color: $gray-900;
 }

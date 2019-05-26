@@ -28,7 +28,6 @@
     "html-webpack-plugin": "^3.2.0",
     "image-webpack-loader": "^4.6.0",
     "imports-loader": "^0.8.0",
-    "jquery": "3.4.0",
     "mini-css-extract-plugin": "^0.4.5",
     "node-sass": "^4.12",
     "popper.js": "^1.14.6",
@@ -41,7 +40,7 @@
     "webpack": "^4.26.1",
     "webpack-clean": "^1.2.3",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "3.1.11",
+    "webpack-dev-server": "3.4.0",
     "webpack-merge": "^4.2.1"
   }
 }

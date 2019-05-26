@@ -88,8 +88,8 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin([ 
-        { from: './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', to: './vendors/bootstrap/bootstrap.bundle.min.js' },
-        { from: './node_modules/jquery/dist/jquery.slim.min.js', to: './vendors/jquery/jquery.slim.min.js' },
+        //{ from: './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', to: './vendors/bootstrap/bootstrap.bundle.min.js' },
+        //{ from: './node_modules/jquery/dist/jquery.slim.min.js', to: './vendors/jquery/jquery.slim.min.js' },
         { from: './src/assets/data/data.json', to: './assets/data/data.json' },
     ]),
     new MiniCssExtractPlugin(),
@@ -103,10 +103,10 @@ module.exports = {
         template: './src/views/index.hbs',
     }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
-    new WebpackCleanMinifyStyleScripts({
+    /*new WebpackCleanMinifyStyleScripts({
         srcFolder: path.join(__dirname, 'src'),
         enable: productionMode
-    }),
+    }),*/
     new webpack.HotModuleReplacementPlugin()
   ],
   optimization: {
@@ -138,13 +138,6 @@ module.exports = {
     compress: true,
     port: 8080,
     //https: true,
-    /*
-    https: {
-      key: fs.readFileSync('/path/to/server.key'),
-      cert: fs.readFileSync('/path/to/server.crt'),
-      ca: fs.readFileSync('/path/to/ca.pem'),
-    }
-    */
     watchContentBase: true,
     writeToDisk: true
   }
