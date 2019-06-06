@@ -3,6 +3,7 @@ path = require('path'),
 webpack = require('webpack'),
 glob = require("glob"),
 HtmlWebpackPlugin = require('html-webpack-plugin'),
+HtmlWebpackInlineSVGPlugin = require('html-webpack-inline-svg-plugin'),
 CopyWebpackPlugin = require('copy-webpack-plugin'),
 CleanWebpackPlugin = require('clean-webpack-plugin'),
 WebpackCleanMinifyStyleScripts = require('./webpack-clean-minify-style-scripts/webpack-clean-minify-style-scripts.js'),
@@ -83,6 +84,10 @@ module.exports = {
         query: {
             rootRelative: './src/views'
         }
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
       }
     ]
   },
@@ -91,6 +96,7 @@ module.exports = {
         //{ from: './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', to: './vendors/bootstrap/bootstrap.bundle.min.js' },
         //{ from: './node_modules/jquery/dist/jquery.slim.min.js', to: './vendors/jquery/jquery.slim.min.js' },
         { from: './src/assets/data/data.json', to: './assets/data/data.json' },
+        //{ from: './src/assets/img/icons/', to: './assets/img/icons/' },
     ]),
     new MiniCssExtractPlugin(),
     new webpack.LoaderOptionsPlugin({
@@ -101,6 +107,9 @@ module.exports = {
     new HtmlWebpackPlugin({
         title: 'My awesome service',
         template: './src/views/index.hbs',
+    }),
+    new HtmlWebpackInlineSVGPlugin({
+      runPreEmit: true
     }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
     /*new WebpackCleanMinifyStyleScripts({
@@ -139,6 +148,6 @@ module.exports = {
     port: 8080,
     //https: true,
     watchContentBase: true,
-    writeToDisk: true
+    writeToDisk: !productionMode
   }
 };
