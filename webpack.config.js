@@ -123,6 +123,7 @@ module.exports = {
       new TerserPlugin({
         terserOptions: {
           output: {
+            //comments: !productionMode,
             comments: false,
           },
         },
@@ -144,7 +145,7 @@ module.exports = {
   devServer: {
     //publicPath: path.join(__dirname, 'docs/'),
     contentBase: path.join(__dirname, 'docs'),
-    compress: true,
+    compress: false,
     port: 8080,
     //https: true,
     watchContentBase: true,

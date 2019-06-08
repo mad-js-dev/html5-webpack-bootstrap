@@ -2,8 +2,18 @@
 @import "01_settings/index";
 @import "02_tools/index";
 
+
+ghostSelector {
+	content: 'genericStyleSheet';
+}
+
 @import "../../node_modules/bootstrap/scss/card";
 @import "05_objects/o-card";
+
+ghostSelector {
+	content: '/genericStyleSheet';
+}
+
 @import "06_components/c-card";
 @import "06_components/c-avatar-card";
 @import "06_components/c-overlay-card";
