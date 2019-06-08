@@ -1,0 +1,57 @@
+.c-card {
+	@extend .o-card;
+	@extend .mt-4;
+    transition: all 0.5s;
+
+    h3, .h3 {
+    	@extend .mb-3;
+        transition: all 0.5s;
+    }
+
+    hr {
+        @extend .d-block;
+        @extend .mb-5;
+        margin: 0 auto;
+        max-width: 50px;
+        border-top: 1px solid $gray-300;
+    }
+
+    & > div {
+    	@extend .text-center;
+    	@extend .py-7;
+
+    	p {
+    		@extend .mb-0;
+    	}
+    	
+    }
+
+    svg {
+    	@extend .mb-5;
+    	margin-top: -6px;
+    	transition: all 0.5s;
+    	height: 60px;
+
+    }
+    
+	//States
+    &:hover {
+        transition: all 0.5s;
+        background-color: $primary;
+        color: $white;
+        
+        h3, .h3 {
+            transition: all 0.5s;
+            color: $white;
+        }
+
+        hr {
+        	border-top: 1px solid $white;
+        }
+        svg g {
+		transition: all 0.5s;
+        	fill: $white;
+        }
+    }
+
+}

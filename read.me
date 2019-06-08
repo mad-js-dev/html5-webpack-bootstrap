@@ -1,0 +1,19 @@
+PreRequisites:
+
+Nvm /nvm-windows (depending the platform)
+Node v8.11.2
+Python 2.7(this is just used for compilation during the installation, not as a tool)
+
+Installation:
+
+npm i
+npm install -g webpack-dev-server
+
+Troubleshooting:
+
+ERROR in XXXXXXXX
+Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):
+ModuleBuildError: Module build failed (from ./node_modules/sass-loader/lib/loader.js):
+Error: ENOENT: no such file or directory, scandir '[PATH TO YOUR PROJECT ROOT]\node_modules\node-sass\vendor'
+
+npm rebuild node-sass

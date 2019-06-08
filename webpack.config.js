@@ -3,6 +3,7 @@ path = require('path'),
 webpack = require('webpack'),
 glob = require("glob"),
 HtmlWebpackPlugin = require('html-webpack-plugin'),
+HtmlWebpackInlineSVGPlugin = require('html-webpack-inline-svg-plugin'),
 CopyWebpackPlugin = require('copy-webpack-plugin'),
 CleanWebpackPlugin = require('clean-webpack-plugin'),
 WebpackCleanMinifyStyleScripts = require('./webpack-clean-minify-style-scripts/webpack-clean-minify-style-scripts.js'),
@@ -13,6 +14,11 @@ const devMode = process.env.NODE_ENV !== 'production';
 let pathsToClean = [
   'docs/*.*'
 ]
+
+let productionMode = true;
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    let productionMode = false;
+}
 
 // the clean options to use
 let cleanOptions = {
@@ -34,7 +40,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'docs'),
-    filename: '[name].[contenthash].js',
+    filename: '[name].[hash].js',
   },
   module: {
     rules: [
@@ -78,14 +84,19 @@ module.exports = {
         query: {
             rootRelative: './src/views'
         }
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
       }
     ]
   },
   plugins: [
     new CopyWebpackPlugin([ 
-        { from: './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', to: './vendors/bootstrap/bootstrap.bundle.min.js' },
-        { from: './node_modules/jquery/dist/jquery.slim.min.js', to: './vendors/jquery/jquery.slim.min.js' },
+        //{ from: './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', to: './vendors/bootstrap/bootstrap.bundle.min.js' },
+        //{ from: './node_modules/jquery/dist/jquery.slim.min.js', to: './vendors/jquery/jquery.slim.min.js' },
         { from: './src/assets/data/data.json', to: './assets/data/data.json' },
+        //{ from: './src/assets/img/icons/', to: './assets/img/icons/' },
     ]),
     new MiniCssExtractPlugin(),
     new webpack.LoaderOptionsPlugin({
@@ -97,16 +108,22 @@ module.exports = {
         title: 'My awesome service',
         template: './src/views/index.hbs',
     }),
+    new HtmlWebpackInlineSVGPlugin({
+      runPreEmit: true
+    }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
-    new WebpackCleanMinifyStyleScripts({
+    /*new WebpackCleanMinifyStyleScripts({
         srcFolder: path.join(__dirname, 'src'),
-    })
+        enable: productionMode
+    }),*/
+    new webpack.HotModuleReplacementPlugin()
   ],
   optimization: {
     minimizer: [
       new TerserPlugin({
         terserOptions: {
           output: {
+            //comments: !productionMode,
             comments: false,
           },
         },
@@ -128,16 +145,10 @@ module.exports = {
   devServer: {
     //publicPath: path.join(__dirname, 'docs/'),
     contentBase: path.join(__dirname, 'docs'),
-    compress: true,
+    compress: false,
     port: 8080,
-    https: true,
-    /*
-    https: {
-      key: fs.readFileSync('/path/to/server.key'),
-      cert: fs.readFileSync('/path/to/server.crt'),
-      ca: fs.readFileSync('/path/to/ca.pem'),
-    }
-    */
-    writeToDisk: true
+    //https: true,
+    watchContentBase: true,
+    writeToDisk: !productionMode
   }
 };

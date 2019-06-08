@@ -1,3 +1,79 @@
 @import "../../node_modules/bootstrap/scss/root";
 @import "../../node_modules/bootstrap/scss/reboot";
 @import "../../node_modules/bootstrap/scss/type";
+
+header {
+	margin-bottom: 38px;
+
+	h2 {
+		margin-bttom: 16px;
+	}
+
+	.lead {
+		margin-bottom: 22px;
+		line-height: $line-height-base * 1em;
+
+		& + hr { //First header
+			margin-bottom: 3px;
+			margin-top: 0;
+		}
+	}
+
+	
+
+	p:not(.lead) {
+		margin-bottom: 22px;
+		font-weight: $font-weight-lighter;
+		& + hr {
+
+		}
+	}
+
+	&.center {
+		text-align: center;
+		
+		hr {
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}
+
+hr {
+    margin-left: 0;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+body {
+    color: $gray-700;
+    line-height: $line-height-base * 1em;
+}
+
+ul{
+    list-style: none;
+    padding-left: 0;
+    color: $gray-900;
+    li {
+        font-weight: $font-weight-light;
+        line-height: 2.143rem;
+        
+        i, svg {
+            color: $gray-600;
+            margin-right: 0.856em;
+        }
+    }
+}
+
+p {
+	line-height: 1.858em;
+	margin-bottom: 2.15em;
+}
+
+.lead {
+    color: $gray-900;
+}
+
+.lead-light {
+    color: $gray-700;
+}

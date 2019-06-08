@@ -1,0 +1,132 @@
+.c-menu {
+    @extend .navbar;
+    @extend .navbar-branded;
+    @extend .bg-light;
+    @extend .fixed-top;
+    
+    & > div { 
+        //@extend .container;
+    }
+    
+    &__extra-info {
+        display: none;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid $navbar-light-color;
+        font-size: 0.9rem;
+    }
+    
+    &__button {
+        float: right;
+        margin: 0.3rem;
+    }
+    
+    &__navbar-brand {
+        @extend .navbar-brand;  
+        @extend .d-inline;
+        @extend .pl-2;
+    }
+    
+    &__navbar {
+        @extend .mr-0;
+    }
+    
+    &__nav-item  {
+        
+    }
+    
+    &__nav-link {
+        @extend .nav-link;
+        @extend .py-3;
+        @extend .px-2;
+        @extend .d-inline-block;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .c-menu {
+        &__wrapper {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        &__navbar {
+            
+            display: inline-flex!important;
+        }
+        
+        &__extra-info {
+            display: block;
+            transition: all 0.6s;
+        }
+        
+        //States
+        &.c-menu--not-on-top {
+            & .c-menu__extra-info {
+                transition: all 0.6s;
+                height: 0;
+                padding: 0;
+                overflow: hidden;
+                margin-top: -1px;//hiding border
+            }
+            
+            & .c-menu__nav-link {
+                padding-top: 0.5rem!important;
+                padding-bottom: 0.5rem!important;
+            }
+
+        }
+    }
+    
+}
+
+// Dark links against a light background
+.navbar-branded {
+  .navbar-brand {
+    color: $navbar-light-brand-color;
+
+    @include hover-focus {
+      color: $navbar-light-brand-hover-color;
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: $navbar-light-color;
+
+      @include hover-focus {
+        color: $navbar-light-hover-color;
+      }
+
+      &.disabled {
+        color: $navbar-light-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: $navbar-light-active-color;
+    }
+  }
+
+  .navbar-toggler {
+    color: $navbar-light-color;
+    border-color: $navbar-light-toggler-border-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image: $navbar-light-toggler-icon-bg;
+  }
+
+  .navbar-text {
+    color: $navbar-light-color;
+    a {
+      color: $navbar-light-active-color;
+
+      @include hover-focus {
+        color: $navbar-light-active-color;
+      }
+    }
+  }
+}

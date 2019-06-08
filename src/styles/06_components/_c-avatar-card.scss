@@ -1,0 +1,30 @@
+.c-avatar-card {
+	@extend .o-card;
+
+	border: 0;
+
+	header {
+		@extend .pb-0;
+		border-bottom: 0;
+		background-color: initial;
+		padding-left: 0;
+
+		p {
+			@extend .mb-0;
+			color: $gray-700;
+		}
+	}
+
+	img {
+		border-radius: 50%;
+	}
+
+	p {
+		color: $gray-900;
+	}
+
+	hr {
+		border-color: $gray-500;
+		min-width: 30px;
+	}
+}
