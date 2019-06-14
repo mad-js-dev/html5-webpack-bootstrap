@@ -7,7 +7,7 @@
         @extend .card-header;
     }
     
-    & > div:not(.row){
+    & > div:not(.row){ 
         @extend .card-body;
 
         img {

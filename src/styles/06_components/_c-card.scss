@@ -1,6 +1,8 @@
 .c-card {
 	@extend .o-card;
-	@extend .mt-4;
+
+    margin-top: map-get($spacers, 4);
+
     transition: all 0.5s;
 
     h3, .h3 {
@@ -10,24 +12,27 @@
 
     hr {
         @extend .d-block;
-        @extend .mb-5;
+
         margin: 0 auto;
+        margin-bottom: map-get($spacers, 5);
+
         max-width: 50px;
         border-top: 1px solid $gray-300;
     }
 
-    & > div {
+    & > div:not(.row) {
     	@extend .text-center;
-    	@extend .py-7;
+        padding-top: map-get($spacers, 7);
+        padding-bottom: map-get($spacers, 7);
 
     	p {
-    		@extend .mb-0;
+    		margin-bottom: map-get($spacers, 0);
     	}
     	
     }
 
     svg {
-    	@extend .mb-5;
+        margin-bottom: map-get($spacers, 5);
     	margin-top: -6px;
     	transition: all 0.5s;
     	height: 60px;

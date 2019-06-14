@@ -1,0 +1,125 @@
+.o-rwd-card-layout {
+	@extend .row;
+
+	& > div {
+		@extend .col-4;
+	}
+	
+	article.c-card {
+		//@extend .o-card;
+		margin-top: map-get($spacers, 3);
+
+		& > div {
+			padding-top: map-get($spacers, 3);
+        	padding-bottom: map-get($spacers, 3);
+        	padding-left: map-get($spacers, 3);
+        	padding-right: map-get($spacers, 3);
+		}
+
+		img, svg {
+			width: 40px;
+		}
+
+		h3 {
+			font-size: $font-size-base;
+		}
+
+		hr {
+			@extend .d-none;
+		}
+	}
+}
+
+@include media-breakpoint-down(sm) {
+	.o-rwd-card-layout {
+		transition: all 0.5s;
+		height: 45vh;
+		position: relative;
+		padding-bottom: 45vh;
+
+		& > div {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		article.c-card {
+			background-color: rgba(0,0,0,0);
+
+
+			img, svg {
+				margin-bottom: 0px;
+			}
+			
+			h3 {
+				transition: all 0.3s;
+				font-size: $font-size-base;
+				color: $gray-800;
+			}
+
+			svg g {
+				transition: all 0.3s;
+	        	fill: $gray-800;
+	        }
+
+	        & > div {
+	        	div {
+	        		position: absolute;
+	        	    bottom: 0;
+					left: 0;
+					opacity: 0;
+					transition: opacity 0.3s;
+					height: 15vh;
+					
+	        		span {
+        			    vertical-align: middle;
+					    height: 100%;
+					    display: inline-block;
+					    width: 1px;
+					    content: '.';
+	        		}
+
+			        p {
+			        	bottom: 0;
+			        	left: 0;
+			        	display: inline-block;
+			        	fill: $gray-800;
+			        	width: 95%;
+			        	color: rgba($gray-900, 1);
+			        }
+	        	}
+	        }
+
+			&:hover {
+				h3 {
+    				color: $gray-900;
+				}
+				svg g {
+					transition: all 0.3s;
+		        	fill: $gray-900;
+		        }
+
+		        & > div {
+		        	div {
+		        		height: 15vh;
+			        	opacity: 1;
+				    	transition: opacity 0.3s;
+			        	transition-delay: 0.6s;
+				        
+		        	}
+		        }
+			}
+		}
+
+		&:hover {
+			transition: all 0.5s;
+			height: 45vh; 
+		    padding-bottom: 65vh;
+
+		    & > div, & > div > div, .c-card {
+		    	position: initial;
+		    }
+
+
+		}
+	}
+}
