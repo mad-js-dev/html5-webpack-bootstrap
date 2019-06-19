@@ -1,7 +1,7 @@
 .o-container {
 	@extend .container;
-	padding-top: 120px;
-	padding-bottom: 120px;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 
 	& > * {
 		@extend .row;
@@ -10,8 +10,8 @@
 
 .o-container-fluid {
 	@extend .container-fluid;
-	padding-top: 120px;
-	padding-bottom: 120px;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 
 	& > * {
 		@extend .container;
@@ -25,14 +25,32 @@
 .o-container-fluid--light {
 	@extend .o-container-fluid;
 	@extend .bg-light;
-	padding-top: 96px;
-	padding-bottom: 96px;
 }
 
 .o-container-fluid--primary {
 	@extend .o-container-fluid;
 	@extend .bg-primary;
 	@extend .text-white;
-	padding-top: 75px;
-	padding-bottom: 75px;
+}
+
+@include media-breakpoint-up(sm) {
+	.o-container {
+		padding-top: 120px;
+		padding-bottom: 120px;
+	}
+
+	.o-container-fluid {
+		padding-top: 120px;
+		padding-bottom: 120px;
+	}
+
+	.o-container-fluid--light {
+		padding-top: 96px;
+		padding-bottom: 96px;
+	}
+
+	.o-container-fluid--primary {
+		padding-top: 75px;
+		padding-bottom: 75px;
+	}
 }
