@@ -77,21 +77,18 @@ for (let item of ratings) {
 }
 
 //let pie = new BridePie();
-/*
-function filterNumbersFromArray(arr) {
-  // Write the code that goes here
-  let removalIndexes = [];
 
-  arr.forEach((elem, ind, arr) => {
-    console.log(elem, ind,arr)
-    if(typeof elem != 'number')removalIndexes.push(ind),console.log('**', ind);
-        arr.splice(ind, 1);
-  })
-    
-  //console.log('--', arr); 
-  removalIndexes.forEach((elem, ind, arr) => {
-    removalIndexes.splice(elem, 1);
-  })
+
+
+function filterNumbersFromArray(data) {
+  // This could be made with arr.filter but it returns a new array that needs to be reasigned to the original var,
+  //(therby, filter doesnt change the original array and its not applicable to this exercise)
+  let i = data.length
+  while(i-- != 0) {
+    if(typeof data[i] != 'number' ) {
+        data.splice(i,1);
+    }
+  }
   
 }
 
@@ -99,4 +96,3 @@ var arr = [1, 'a', 'b', 2];
 filterNumbersFromArray(arr);
 for (var i = 0; i < arr.length; i++)
   console.log(arr[i]);
-*/
