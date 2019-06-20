@@ -1,24 +1,9 @@
 import "../styles/pageStyles.scss";
 
-let ratings = document.getElementsByClassName('c-rating');
-
-for (let item of ratings) {
-    console.log(item);
-    item.addEventListener('click', (e) => {
-        console.log(e.currentTarget.classList.contains('c-rating') ,e);
-        if(!e.target.classList.contains('c-rating')){
-            let rootElement = e.target.farthestViewportElement.parentElement;
-            rootElement.classList.remove('empty');
-            console.log(rootElement.getElementsByClassName('active'));
-            for(let elem of rootElement.getElementsByClassName('active'))elem.classList.remove('active');
-            e.target.farthestViewportElement.classList.add('active');
-        }
-    })
-}
-
-//let pie = new BridePie();
 
 
+
+//Filter numbers exercise
 
 function filterNumbersFromArray(data) {
   // This could be made with arr.filter but it returns a new array that needs to be reasigned to the original var,
@@ -37,6 +22,7 @@ filterNumbersFromArray(arr);
 for (var i = 0; i < arr.length; i++)
   console.log(arr[i]);
 
+//Polygons exercise
 
 const getPolygon = function (countOfSegments) {
   // Create a Polygon Object
@@ -92,3 +78,23 @@ generic.whatIs(); // Open a new window that links to https://en.wikipedia.org/wi
 
 
 const emptyPolygon = getPolygon(); // Emit a log message: 'A polygon needs to have at least 3 segments, it will be set to 3' and set it to 3
+
+
+
+//Custom tailor star concept
+//Instead of depending handling of multiple classes on js
+//uses styles to work with just one css class(check styles on this example commit
+//https://github.com/mad-js-dev/html5-webpack-bootstrap/commit/4033eae2aa850402c9b959b4292e47c732d43cfd
+//)
+let ratings = document.getElementsByClassName('c-rating');
+
+for (let item of ratings) {
+    item.addEventListener('click', (e) => {
+        if(!e.target.classList.contains('c-rating')){
+            let rootElement = e.target.farthestViewportElement.parentElement;
+            rootElement.classList.remove('empty');
+            for(let elem of rootElement.getElementsByClassName('active'))elem.classList.remove('active');
+            e.target.farthestViewportElement.classList.add('active');
+        }
+    })
+}
