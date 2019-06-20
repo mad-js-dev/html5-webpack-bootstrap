@@ -1,0 +1,24 @@
+.c-rating {
+	* {
+		cursor: pointer;
+		margin: 0 3px;	
+		path {
+			fill: yellow;
+		}		
+	}
+
+	*.active + *, 
+	*.active + * + *,
+	*.active + * + * + *,
+	*.active + * + * + * + *, {
+		path {
+			fill: grey;
+		}
+	}
+
+	&.empty > * {
+		path {
+			fill: grey;
+		}
+	}
+}
