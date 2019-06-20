@@ -4,10 +4,10 @@ import "../styles/pageStyles.scss";
 
 
 //Filter numbers exercise
+// This could be made with arr.filter but it returns a new array that needs to be reasigned to the original var,
+//(therby, filter doesnt change the original array and its not applicable to this exercise)
 
 function filterNumbersFromArray(data) {
-  // This could be made with arr.filter but it returns a new array that needs to be reasigned to the original var,
-  //(therby, filter doesnt change the original array and its not applicable to this exercise)
   let i = data.length
   while(i-- != 0) {
     if(typeof data[i] != 'number' ) {
@@ -22,7 +22,7 @@ filterNumbersFromArray(arr);
 for (var i = 0; i < arr.length; i++)
   console.log(arr[i]);
 
-//Polygons exercise
+//Polygons exercise (already done at the test)
 
 const getPolygon = function (countOfSegments) {
   // Create a Polygon Object
