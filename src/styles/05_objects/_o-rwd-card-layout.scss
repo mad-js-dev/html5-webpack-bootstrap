@@ -4,30 +4,6 @@
 	& > div {
 		@extend .col-4;
 	}
-	
-	article.c-card {
-		//@extend .o-card;
-		margin-top: map-get($spacers, 3);
-
-		& > div {
-			padding-top: map-get($spacers, 3);
-        	padding-bottom: map-get($spacers, 3);
-        	padding-left: map-get($spacers, 3);
-        	padding-right: map-get($spacers, 3);
-		}
-
-		img, svg {
-			width: 40px;
-		}
-
-		h3 {
-			font-size: $font-size-base;
-		}
-
-		hr {
-			@extend .d-none;
-		}
-	}
 }
 
 @include media-breakpoint-down(sm) {
@@ -44,10 +20,12 @@
 
 		article.c-card {
 			background-color: rgba(0,0,0,0);
-
+			margin-top: map-get($spacers, 3);
 
 			img, svg {
 				margin-bottom: 0px;
+				width: 40px;
+
 			}
 			
 			h3 {
@@ -56,12 +34,21 @@
 				color: $gray-800;
 			}
 
+			hr {
+				display: none!important;
+			}
+
 			svg g {
 				transition: all 0.3s;
 	        	fill: $gray-800;
 	        }
 
 	        & > div {
+				padding-top: map-get($spacers, 3);
+	        	padding-bottom: map-get($spacers, 3);
+	        	padding-left: map-get($spacers, 3);
+	        	padding-right: map-get($spacers, 3);
+
 	        	div {
 	        		position: absolute;
 	        	    bottom: 0;

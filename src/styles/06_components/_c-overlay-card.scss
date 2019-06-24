@@ -6,9 +6,8 @@
 
 	    & > div:not(.card-img-top) {
 			color: $white;
-	        margin: 0 60px;
+	        
 	        position: relative;
-    		margin-top: -80px;
 		    
 			.i {
 			    border-radius: 50%;
@@ -33,5 +32,16 @@
 	}
 
 	svg {
+	}
+}
+
+
+@include media-breakpoint-up(sm) {
+	.c-overlay-card {
+		&__primary , &__secondary {
+	    	& > div:not(.card-img-top) {
+	    		margin: -80px 60px 0 60px;
+	    	}
+	    }
 	}
 }

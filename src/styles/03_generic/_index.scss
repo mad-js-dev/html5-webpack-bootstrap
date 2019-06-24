@@ -39,6 +39,13 @@ header {
 	}
 }
 
+@include media-breakpoint-down(sm) {
+	header {
+		h2 {
+			font-size: $h1-font-size;
+		}
+	}
+}
 hr {
     margin-left: 0;
     min-width: 50px;
@@ -53,17 +60,39 @@ body {
 ul{
     list-style: none;
     padding-left: 0;
+    padding-right: map-get($spacers, 3);
     color: $gray-900;
+
     li {
         font-weight: $font-weight-light;
         line-height: 2.143rem;
-        
-        i, svg {
-            color: $gray-600;
-            margin-right: 0.856em;
+        padding-bottom: map-get($spacers, 3);
+
+        p {
+        	@extend .d-inline-block;
+        	margin-bottom: 0;
+        	padding-left: 1.80025rem;
+        	line-height: 1.2rem;
+
+	        i, svg {
+	            color: $gray-600;
+	            margin-left: -1.80025rem;
+	            margin-right: 0.725rem;
+	        }
         }
     }
 }
+
+@include media-breakpoint-up(sm) {
+	ul {
+		padding-right: 0;
+		li {
+			padding-bottom: 0;
+		}
+	}
+}
+
+
 
 p {
 	line-height: 1.858em;
