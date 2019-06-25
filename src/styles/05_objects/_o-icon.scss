@@ -1,0 +1,148 @@
+
+$font-size: 14px;
+$icon-size: $font-size * 3;
+
+.o-icon {
+	display: inline-block;
+	width: $icon-size;
+	height: $icon-size;
+	background-color: $gray-200;
+
+	span {
+		//
+		display: inline-block;
+
+		i, svg {
+			margin: 0 auto;
+			display: inline-block;
+		    vertical-align: top;
+		    height: .875em;
+		    width: .875em;
+		}
+		i + i, svg + svg {
+			//opacity: 0;
+		}
+	}
+
+
+}
+
+.o-icon {
+
+	&--circle {
+		@extend .o-icon;
+		border-radius: 50%;
+		span {
+			padding-top: ($font-size / 100) * 85.71;
+			padding-left: ($font-size / 100) * 85.71;
+			margin: ($icon-size / 100) * 4.175;
+			width: ($icon-size / 100) * 91.65;
+			height: ($icon-size / 100) * 91.65;
+		}
+	}
+
+	&--square, &--square--no-rad  {
+		@extend .o-icon;
+		span {
+			padding-top: ($font-size / 100) * 64.28;
+			margin: ($icon-size / 100) * 12.24;
+			width: ($icon-size / 100) * 75.52;
+			height: ($icon-size / 100) * 75.52;
+		}
+	}
+
+
+	&--hrect, &--hrect--no-rad  {
+		@extend .o-icon;
+		span {
+			padding-top: ($font-size / 100) * 50;
+			margin: ($icon-size / 100) * 16.675 ($icon-size / 100) * 4.175;
+			height: ($icon-size / 100) * 66.65;
+			width: ($icon-size / 100) * 91.65;
+		}
+	}
+
+	&--vrect, &--vrect--no-rad  {
+		@extend .o-icon;
+		span {
+			padding-top:($font-size / 100) * 85.71;
+			margin: ($icon-size / 100) * 4.175 ($icon-size / 100) * 16.675;
+			height: ($icon-size / 100) * 91.65;
+			width: ($icon-size / 100) * 66.65;
+		}
+	}
+
+
+	&--square,&--hrect,&--vrect {
+		border-radius: 0.25rem;
+	}
+
+	&--square#{&}--no-rad,&--hrect#{&}--no-rad,&--vrect#{&}--no-rad {
+		border-radius: 0;
+	}
+
+	&--square.show,&--hrect.show,&--vrect.show,&--circle.show {
+		svg:first-child {
+			animation: left90FirstElement .2s ease 0s 1 normal forwards;
+		}
+		svg + svg {
+			//opacity: 0;
+			animation: displaySecondElement  .2s ease 0s 1 normal forwards;
+		}
+	}
+
+}
+
+@keyframes left90FirstElement {
+	0% {
+		transform: rotate(0deg);
+		width: .875em;
+		//trasform-origin: center center;
+	}
+	96%{
+		transform: rotate(-90deg);
+		opacity: 1;
+		//trasform-origin: center center;
+		width: .875em;
+	}
+	97% {
+		//transform: scale(1);
+		opacity: 0;
+		width: 0;
+	}
+	100% {
+		transform: rotate(-90deg);
+		width: 0;
+		opacity: 0;
+		//transform: scale(0);
+	    //width: 0;
+	}
+}
+
+@keyframes displaySecondElement {
+	0% {
+		opacity: 0;
+	}
+	98% {
+		opacity: 0;
+	}
+	99% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes right90 {
+   0% {
+   	svg {
+   		transform: rotate(0deg);
+   	}
+   }
+  50%{
+  	svg {
+  		transform: rotate(90deg);
+  	}
+  }
+}
