@@ -3,6 +3,7 @@ import "../styles/pageStyles.scss";
 var hi = 'world1';
 console.log(hi);
 
+/*
 class BridePie {
     constructor(...data){
         const width = 540;
@@ -69,4 +70,55 @@ class BridePie {
     }
 }
 
-let pie = new BridePie();
+let pie = new BridePie();*/
+
+
+class IconsHandler {
+    //Class handling for animated icons
+    constructor() {
+        this.selectors = [ "o-icon--circle", "o-icon--square", "o-icon--square--no-rad", "o-icon--hrect", "o-icon--hrect--no-rad", "o-icon--vrect", "o-icon--vrect--no-rad"];
+        
+        //Setting binding for all icons
+        for(let selector of this.selectors) {
+            let collection = document.getElementsByClassName(selector);
+
+            for(let htmlElement of collection) {
+                let dataToggle = htmlElement.attributes.getNamedItem("data-toggle");
+                //Filtering out the ones that dont have data-toggle="icon"
+                if(dataToggle != null && dataToggle.value == "icon") {
+                    console.log(htmlElement);
+                    //Setting listener
+                    htmlElement.addEventListener('click', this.toggleIcon());
+                }
+            }
+        }
+            
+    }
+
+    toggleIcon() {
+        return (e) => {
+            console.log(e.target, e.currentTarget);
+            let rootElement = e.currentTarget;
+
+            if(rootElement.classList.contains('shown')) {
+                rootElement.classList.add('hidding');
+                setTimeout(()=>{
+                    rootElement.classList.remove('hidding');
+                    rootElement.classList.remove('shown');
+                },200);
+            } else {
+                rootElement.classList.add('showing');
+                setTimeout(()=>{
+                    rootElement.classList.add('shown');
+                    rootElement.classList.remove('showing');
+                },200);
+            }
+            //
+
+        }
+    }
+    
+}
+
+let icons = new IconsHandler();
+
