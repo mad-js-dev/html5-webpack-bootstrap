@@ -84,7 +84,8 @@ module.exports = {
         test: /\.hbs/, 
         loader: "handlebars-loader",
         query: {
-            rootRelative: './src/views'
+            //rootRelative: './src/views/',
+            partialDirs: path.join(__dirname, 'src', 'components'),
         }
       },
       {
