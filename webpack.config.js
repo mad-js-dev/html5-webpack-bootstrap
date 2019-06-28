@@ -12,7 +12,8 @@ TerserPlugin = require('terser-webpack-plugin');
 const devMode = process.env.NODE_ENV !== 'production';
 // the path(s) that should be cleaned
 let pathsToClean = [
-  'docs/*.*'
+  'docs/*'
+
 ]
 
 let productionMode = true;
@@ -35,8 +36,9 @@ module.exports = {
   entry: {
       //main: entries,
       //home: './src/home.js',
-      BaseStyles: './src/styles/BaseStyles.js',
-      view: './src/views/index.js'
+      'BaseStyles': './src/styles/BaseStyles.js',
+      'scripts/home': './src/views/home/index.js',
+      'scripts/styleguide': './src/views/styleguide/index.js'
   },
   output: {
     path: path.resolve(__dirname, 'docs'),
@@ -98,15 +100,24 @@ module.exports = {
         { from: './src/assets/data/data.json', to: './assets/data/data.json' },
         //{ from: './src/assets/img/icons/', to: './assets/img/icons/' },
     ]),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      filename: "styles/[name].css",
+    }),
     new webpack.LoaderOptionsPlugin({
         options: {
           handlebarsLoader: {}
         }
     }), 
     new HtmlWebpackPlugin({
-        title: 'My awesome service',
-        template: './src/views/index.hbs',
+        title: 'Home',
+        template: './src/views/home/home.hbs',
+        filename: 'index.html',
+    }),
+    new HtmlWebpackPlugin({
+        title: 'Product styleguide',
+        template: './src/views/styleguide/styleguide.hbs',
+        filename: 'styleguide.html',
     }),
     new HtmlWebpackInlineSVGPlugin({
       runPreEmit: true

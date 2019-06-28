@@ -1,4 +1,4 @@
-import "../styles/pageStyles.scss";
+import "../../styles/pageStyles.scss";
 
 var hi = 'world1';
 console.log(hi);
